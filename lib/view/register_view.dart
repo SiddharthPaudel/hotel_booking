@@ -77,24 +77,24 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // TextField(
-                //   decoration: InputDecoration(
-                //     labelText: 'Email Address',
-                //     labelStyle: TextStyle(color: Colors.black),
-                //     prefixIcon: Icon(
-                //       Icons.email,
-                //       color: Colors.black,
-                //     ),
-                //     focusedBorder: OutlineInputBorder(
-                //       borderSide: BorderSide(color: Colors.blue),
-                //       borderRadius: BorderRadius.circular(8),
-                //     ),
-                //     enabledBorder: OutlineInputBorder(
-                //       borderSide: BorderSide(color: Colors.black),
-                //       borderRadius: BorderRadius.circular(8),
-                //     ),
-                //   ),
-                // ),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email Address',
+                    labelStyle: TextStyle(color: Colors.black),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.black,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 20),
                 TextField(
                   obscureText: true,
