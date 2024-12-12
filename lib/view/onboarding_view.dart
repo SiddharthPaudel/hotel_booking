@@ -44,12 +44,12 @@ class OnboardingScreen extends StatelessWidget {
                   bodyWidget: Column(
                     children: [
                       SizedBox(height: 20),
-                      // Image.asset(
-                      //   'assets/introduction2.png',
-                      //   height: 250, // Adjusted height
-                      //   width: 250, // Adjusted width
-                      //   fit: BoxFit.cover,
-                      // ),
+                      Image.asset(
+                        'assets/introduction2.png',
+                        height: 250, // Adjusted height
+                        width: 250, // Adjusted width
+                        fit: BoxFit.cover,
+                      ),
                       SizedBox(height: 20),
                       Text(
                         "Choose and book the best place for you.",
