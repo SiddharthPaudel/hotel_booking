@@ -71,12 +71,12 @@ class OnboardingScreen extends StatelessWidget {
                   bodyWidget: Column(
                     children: [
                       SizedBox(height: 20),
-                      // Image.asset(
-                      //   'assets/introduction3.png',
-                      //   height: 250, // Smaller size
-                      //   width: 250,
-                      //   fit: BoxFit.cover,
-                      // ),
+                      Image.asset(
+                        'assets/introduction3.png',
+                        height: 250, // Smaller size
+                        width: 250,
+                        fit: BoxFit.cover,
+                      ),
                       SizedBox(height: 20),
                       Text(
                         "Relax, unwind, and make memories",
