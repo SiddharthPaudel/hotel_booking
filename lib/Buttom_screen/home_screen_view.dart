@@ -12,11 +12,11 @@ class HomeScreenView extends StatelessWidget {
           children: [
             Text(
               "Location",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              style: TextStyle(fontSize: 15, color: Colors.black),
             ),
             Text(
-                "Bali, Indonesia",
-                style: TextStyle(fontSize: 18, color: Colors.black),
+                "Pokhara",
+                style: TextStyle(fontSize: 20, color: Colors.blue,fontWeight: FontWeight.bold),
                 ),
           ],
         ),
@@ -42,9 +42,9 @@ class HomeScreenView extends StatelessWidget {
                       Text(
                         "24 OCT - 26 OCT",
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold,color:Colors.blue ),
                       ),
-                      Text("3 guests", style: TextStyle(color: Colors.grey)),
+                      Text("3 guests", style: TextStyle(color: Colors.blue)),
                     ],
                   ),
                 ),
@@ -72,7 +72,7 @@ class HomeScreenView extends StatelessWidget {
             // Recommended Hotels Section
             Text(
               "Recommended Hotels",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.blue),
             ),
             SizedBox(height: 8),
             SizedBox(
@@ -99,8 +99,8 @@ class HomeScreenView extends StatelessWidget {
             SizedBox(height: 16),
             // Business Accommodations Section
             Text(
-              "Business Accommodates",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              "Explore More",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color:Colors.blue),
             ),
             SizedBox(height: 8),
             SizedBox(

@@ -28,27 +28,62 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
       body: _screens[_selectedIndex], // Display selected screen
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: _buildIcon('assets/icons/home.png', 'Home'),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Cart',
+            icon: _buildIcon('assets/icons/online-booking.png', 'My Booking'),
+            label: 'My Booking',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: _buildIcon('assets/icons/user.png', 'Profile'),
             label: 'Profile',
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildIcon(String assetPath, String label) {
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {});
+      },
+      onExit: (_) {
+        setState(() {});
+      },
+      child: IconButton(
+        icon: Image.asset(
+          assetPath,
+          width: 28, // Increased icon size for better look
+          height: 28,
+          color: _selectedIndex == _getIconIndex(label) ? Colors.blue : Colors.black,
+        ),
+        onPressed: () {
+          // Handle navigation or other actions
+          _onItemTapped(_getIconIndex(label));
+        },
+      ),
+    );
+  }
+
+  int _getIconIndex(String label) {
+    switch (label) {
+      case 'Home':
+        return 0;
+      case 'My Booking':
+        return 1;
+      case 'Profile':
+        return 2;
+      default:
+        return 0;
+    }
   }
 }
