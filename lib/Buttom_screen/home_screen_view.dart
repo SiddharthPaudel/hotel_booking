@@ -15,9 +15,9 @@ class HomeScreenView extends StatelessWidget {
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
             Text(
-              "Bali, Indonesia",
-              style: TextStyle(fontSize: 18, color: Colors.black),
-            ),
+                "Bali, Indonesia",
+                style: TextStyle(fontSize: 18, color: Colors.black),
+                ),
           ],
         ),
         actions: [
@@ -41,7 +41,8 @@ class HomeScreenView extends StatelessWidget {
                     children: [
                       Text(
                         "24 OCT - 26 OCT",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Text("3 guests", style: TextStyle(color: Colors.grey)),
                     ],
@@ -126,35 +127,7 @@ class HomeScreenView extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 0, // Highlight "Home"
-        onTap: (index) {
-          // Navigate based on index
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Favorites",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: "My bookings",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: "Chats",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profile",
-          ),
-        ],
-      ),
+
     );
   }
 }

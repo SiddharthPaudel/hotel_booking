@@ -24,6 +24,7 @@ flutter:
   # Asset declaration
   assets:
     - assets/images/ # Include all images inside the assets/images folder.
+    - assets/icons/ # Include all images inside the assets/images folder.
 
   # Font declaration
   fonts:

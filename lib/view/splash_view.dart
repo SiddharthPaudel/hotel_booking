@@ -22,7 +22,7 @@ class SplashView extends StatelessWidget {
                 );
               },
               child: Image.asset(
-                'assets/new_logo.png', // Path to your image
+                'assets/images/new_logo.png', // Path to your image
                 width: 360, // Adjust size as needed
                 height: 360, // Adjust height as needed
               ),
