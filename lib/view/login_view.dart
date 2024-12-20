@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking/view/home_view.dart';
+import 'package:hotel_booking/view/dashboard_view.dart';
 import 'package:hotel_booking/view/register_view.dart';
 
 class LoginView extends StatefulWidget {
@@ -29,7 +29,7 @@ class _LoginViewState extends State<LoginView> {
       // Navigate to Dashboard (HomeView)
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeView()),
+        MaterialPageRoute(builder: (context) => DashboardView()),
       );
     } else {
       // Show error message
@@ -42,8 +42,6 @@ class _LoginViewState extends State<LoginView> {
       );
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {

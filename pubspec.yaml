@@ -1,25 +1,32 @@
 name: hotel_booking
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: 'none' # This specifies that the package is private and won't be published.
 
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.5.4 # Ensure the correct Flutter SDK version.
 
 dependencies:
   flutter:
     sdk: flutter
-  introduction_screen: ^3.1.14
-  cupertino_icons: ^1.0.8
+  introduction_screen: ^3.1.14 # A dependency for introduction screens.
+  cupertino_icons: ^1.0.8 # Provides Cupertino icons for iOS-style widgets.
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter
-  flutter_lints: ^4.0.0
+    sdk: flutter # Testing framework.
+  flutter_lints: ^4.0.0 # Linting rules to maintain code quality.
 
 flutter:
-  uses-material-design: true
+  uses-material-design: true # Use Material Design widgets and themes.
 
+  # Asset declaration
   assets:
-    - assets/
+    - assets/images/ # Include all images inside the assets/images folder.
+
+  # Font declaration
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Regular.ttf # Ensure the font file exists in the assets/fonts directory.

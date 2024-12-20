@@ -25,23 +25,23 @@ class _RegisterViewState extends State<RegisterView> {
                 const SizedBox(height: 30),
 
                 // Welcome message
-                RichText(
-                  text: const TextSpan(
+                Text.rich(
+                  TextSpan(
                     children: [
                       TextSpan(
                         text: 'Create ',
                         style: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.bold,
                           color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26.0,
                         ),
                       ),
                       TextSpan(
                         text: 'Account',
                         style: TextStyle(
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.bold,
                           color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26.0,
                         ),
                       ),
                     ],
