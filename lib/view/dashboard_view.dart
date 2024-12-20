@@ -28,25 +28,32 @@ class _DashboardViewState extends State<DashboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex], // Display selected screen
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        items: [
-          BottomNavigationBarItem(
-            icon: _buildIcon('assets/icons/home.png', 'Home'),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: _buildIcon('assets/icons/online-booking.png', 'My Booking'),
-            label: 'My Booking',
-          ),
-          BottomNavigationBarItem(
-            icon: _buildIcon('assets/icons/user.png', 'Profile'),
-            label: 'Profile',
-          ),
-        ],
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false, // Prevent resizing and overflow
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 5.0), // Add padding for bottom space
+        child: _screens[_selectedIndex], // Display selected screen
+      ),
+      bottomNavigationBar: SafeArea( // Wrap BottomNavigationBar inside SafeArea
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: [
+            BottomNavigationBarItem(
+              icon: _buildIcon('assets/icons/home.png', 'Home'),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: _buildIcon('assets/icons/online-booking.png', 'My Booking'),
+              label: 'My Booking',
+            ),
+            BottomNavigationBarItem(
+              icon: _buildIcon('assets/icons/user.png', 'Profile'),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -62,8 +69,8 @@ class _DashboardViewState extends State<DashboardView> {
       child: IconButton(
         icon: Image.asset(
           assetPath,
-          width: 28, // Increased icon size for better look
-          height: 28,
+          width: 23, // Adjust icon size
+          height: 23,
           color: _selectedIndex == _getIconIndex(label) ? Colors.blue : Colors.black,
         ),
         onPressed: () {
