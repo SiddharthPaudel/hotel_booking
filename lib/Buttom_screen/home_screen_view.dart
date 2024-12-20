@@ -58,10 +58,12 @@ class HomeScreenView extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(color: Color(0xFF007EF2)),  // Use hex color for border
-
                 ),
-
-                filled: true,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Color(0xFF007EF2), width: 2),  // Focused border with blue color
+                ),
+                filled: false,
                 fillColor: Colors.white,
               ),
             ),
@@ -82,21 +84,18 @@ class HomeScreenView extends StatelessWidget {
                     imagePath: 'assets/images/hotel1.jpg',
                     name: 'AYANA Resort',
                     location: 'Pokhara',
-
                   ),
                   SizedBox(width: 10),
                   HotelCard(
                     imagePath: 'assets/images/hotel2.png',
                     name: 'COMO Uma Resort',
                     location: 'Pokhara',
-
                   ),
                   SizedBox(width: 10),
                   HotelCard(
                     imagePath: 'assets/images/hotel3.png',
                     name: 'Ritz-Carlton',
                     location: 'Pokhara',
-
                   ),
                 ],
               ),
@@ -118,21 +117,18 @@ class HomeScreenView extends StatelessWidget {
                     imagePath: 'assets/images/hotel4.jpeg',
                     name: 'Intercontinental',
                     location: 'Pokhara',
-
                   ),
                   SizedBox(width: 10),
                   HotelCard(
                     imagePath: 'assets/images/hotel1.jpg',
                     name: 'Hilton Garden Inn',
                     location: 'Pokhara',
-
                   ),
                   SizedBox(width: 10),
                   HotelCard(
                     imagePath: 'assets/images/hotel3.png',
                     name: 'Sheraton',
                     location: 'Pokhara',
-
                   ),
                 ],
               ),
@@ -149,12 +145,10 @@ class HotelCard extends StatelessWidget {
   final String name;
   final String location;
 
-
   const HotelCard({
     required this.imagePath,
     required this.name,
     required this.location,
-
   });
 
   @override
@@ -184,7 +178,6 @@ class HotelCard extends StatelessWidget {
             style: TextStyle(color: Colors.grey),
           ),
           SizedBox(height: 4),
-
         ],
       ),
     );
