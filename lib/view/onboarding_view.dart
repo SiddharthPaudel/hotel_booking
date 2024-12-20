@@ -11,13 +11,17 @@ class OnboardingScreen extends StatelessWidget {
           PageViewModel(
             title: "Welcome To Quick Stay",
             bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,  // Vertically center the content
+              crossAxisAlignment: CrossAxisAlignment.center,  // Horizontally center the content
               children: [
                 SizedBox(height: 20),
-                Image.asset(
-                  'assets/images/introduction1.png',
-                  height: 250,
-                  width: 250,
-                  fit: BoxFit.cover,
+                Center(
+                  child: Image.asset(
+                    'assets/images/introduction1.png',
+                    height: 250,
+                    width: 250,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Text(
@@ -31,6 +35,7 @@ class OnboardingScreen extends StatelessWidget {
               titleTextStyle: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
+                color: Color(0xFF007EF2),  // Changed the title color here
               ),
               bodyTextStyle: TextStyle(fontSize: 18.0),
             ),
@@ -38,13 +43,17 @@ class OnboardingScreen extends StatelessWidget {
           PageViewModel(
             title: "Plan Your Trip",
             bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,  // Vertically center the content
+              crossAxisAlignment: CrossAxisAlignment.center,  // Horizontally center the content
               children: [
                 SizedBox(height: 20),
-                Image.asset(
-                 'assets/images/introduction2.png',
-                  height: 250,
-                  width: 250,
-                  fit: BoxFit.cover,
+                Center(
+                  child: Image.asset(
+                    'assets/images/introduction2.png',
+                    height: 250,
+                    width: 250,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Text(
@@ -58,6 +67,7 @@ class OnboardingScreen extends StatelessWidget {
               titleTextStyle: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
+                color: Color(0xFF007EF2),  // Changed the title color here
               ),
               bodyTextStyle: TextStyle(fontSize: 18.0),
             ),
@@ -65,13 +75,17 @@ class OnboardingScreen extends StatelessWidget {
           PageViewModel(
             title: "Enjoy Your Stay",
             bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,  // Vertically center the content
+              crossAxisAlignment: CrossAxisAlignment.center,  // Horizontally center the content
               children: [
                 SizedBox(height: 20),
-                Image.asset(
-                 'assets/images/introduction3.png',
-                  height: 250,
-                  width: 250,
-                  fit: BoxFit.cover,
+                Center(
+                  child: Image.asset(
+                    'assets/images/introduction3.png',
+                    height: 250,
+                    width: 250,
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Text(
@@ -85,6 +99,7 @@ class OnboardingScreen extends StatelessWidget {
               titleTextStyle: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
+                color: Color(0xFF007EF2),  // Changed the title color here
               ),
               bodyTextStyle: TextStyle(fontSize: 18.0),
             ),

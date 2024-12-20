@@ -57,8 +57,10 @@ class HomeScreenView extends StatelessWidget {
                 hintText: "Search Hotel By Name",
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.blue),
+                  borderSide: BorderSide(color: Color(0xFF007EF2)),  // Use hex color for border
+
                 ),
+
                 filled: true,
                 fillColor: Colors.white,
               ),
