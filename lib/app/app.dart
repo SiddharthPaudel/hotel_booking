@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking/Buttom_screen/home_screen_view.dart';
-import 'package:hotel_booking/common/core/App_theme/app_theme.dart';
-import 'package:hotel_booking/view/dashboard_view.dart';
-import 'package:hotel_booking/view/login_view.dart';
-import 'package:hotel_booking/view/onboarding_view.dart';
-import 'package:hotel_booking/view/register_view.dart';
-import 'package:hotel_booking/view/splash_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/app/di/di.dart';
+import 'package:hotel_booking/core/theme/app_theme.dart';
+import 'package:hotel_booking/features/splash/presentation/view/splash_view.dart';
+import 'package:hotel_booking/features/splash/presentation/view_model/splash_cubit.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashView(),
-      theme: getApplicationTheme(),
-      routes: {
-        '/Onboard': (context) => OnboardingScreen(),
-        '/login': (context) => const LoginView(),
-        '/register': (context) => const RegisterView(),
-        '/Dash': (context) => DashboardView(),
-        '/home': (context) => HomeScreenView()
-
-        // Add any other routes you need
-      },
+      theme: AppTheme.getApplicationTheme(isDarkMode: false),
+      home: BlocProvider.value(
+        value: getIt<SplashCubit>(),
+        child: SplashView(),
+      ),
     );
   }
 }
