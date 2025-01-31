@@ -10,11 +10,9 @@ class ApiEndpoints {
   // ============= Auth Routes =============
   static const String loginUser = "auth/login";
   static const String registerUser = "auth/register";
-  static const String getAllUsers = "auth/getAllStudents";
-  static const String updateUser = "auth/updateStudent";
-  static const String deleteUser = "auth/deleteStudent";
+  static const String getAllUsers = "auth/getAllUsers";
+  static const String updateUser = "auth/updateUser";
+  static const String deleteUser = "auth/deleteUser";
   static const String imageUrl = "http://10.0.2.2:3000/uploads/";
   static const String uploadImage = "auth/uploadImage";
-
- 
 }

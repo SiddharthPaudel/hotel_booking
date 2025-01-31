@@ -60,11 +60,11 @@ class _RegisterViewState extends State<RegisterView> {
               fontSize: 30,
               fontWeight: FontWeight.bold,
               color: Colors.black,
-              fontFamily: 'Account',
+              fontFamily: 'Nunito',
             ),
             children: [
               TextSpan(
-                text: ' Back',
+                text: ' Account',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
