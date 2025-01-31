@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'login_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -10,253 +15,303 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final _gap = const SizedBox(height: 16);
+  final _key = GlobalKey<FormState>();
+  final _emailController = TextEditingController(text: 'Sid@gmail.com');
+  final _usernameController = TextEditingController(text: 'Sid');
+  final _passwordController = TextEditingController(text: 'test12345');
 
-  String emailError = '';
-  String passwordError = '';
-
-  @override
-  void initState() {
-    super.initState();
-    Hive.initFlutter();
-  }
-
-  bool _isPasswordValid(String password) => password.length >= 8;
-
-  bool _isEmailValid(String email) => email.trim().contains('@gmail.com');
-
-  void _saveUserData() async {
-    if (passwordController.text != confirmPasswordController.text) {
-      _showErrorSnackBar("Passwords do not match.");
-      return;
+  // Checking for Runtime Camera Permissions
+  checkCameraPermission() async {
+    if (await Permission.camera.request().isRestricted ||
+        await Permission.camera.request().isDenied) {
+      await Permission.camera.request();
     }
-
-    var userBox = await Hive.openBox('users');
-
-    userBox.put(emailController.text, {
-      "username": usernameController.text,
-      "email": emailController.text,
-      "password": passwordController.text,
-    });
-
-    _showSuccessSnackBar();
   }
 
-  void _showSuccessSnackBar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'Registered successfully!',
-          style: TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-        duration: Duration(seconds: 3),
-      ),
-    );
+  File? _img;
 
-    Future.delayed(const Duration(seconds: 3), () {
-      if (context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginView()),
-        );
+  Future _browseImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+      if (image != null) {
+        setState(() {
+          _img = File(image.path);
+
+          // Send File to server
+          context.read<RegisterBloc>().add(LoadImage(file: _img!));
+        });
+      } else {
+        return;
       }
-    });
-  }
-
-  void _showErrorSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.red,
-      ),
-    );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+      appBar: AppBar(
+        title: RichText(
+          text: TextSpan(
+            text: 'Create',
+            style: const TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+              fontFamily: 'Account',
+            ),
+            children: [
+              TextSpan(
+                text: ' Back',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                  fontFamily: 'Nunito',
+                ),
+              ),
+            ],
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white, // Blue background for the app bar
+      ),
+      body: MultiBlocListener(
+        listeners: [
+          // Listener for Image Upload
+          BlocListener<RegisterBloc, RegisterState>(
+            listenWhen: (previous, current) =>
+                previous.isImageLoading != current.isImageLoading ||
+                previous.isImageSuccess != current.isImageSuccess,
+            listener: (context, state) {
+              if (state.isImageLoading) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Uploading image...'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              } else if (state.isImageSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Image uploaded successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } else if (!state.isImageLoading &&
+                  !state.isImageSuccess &&
+                  state.imageName == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Failed to upload image. Please try again.'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+          ),
+          // Listener for Student Registration
+          BlocListener<RegisterBloc, RegisterState>(
+            listenWhen: (previous, current) =>
+                previous.isLoading != current.isLoading ||
+                previous.isSuccess != current.isSuccess,
+            listener: (context, state) {
+              if (state.isLoading) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Registering User...'),
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              } else if (state.isSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('User registered successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+
+                // Navigate back to the login page after registration success
+                Future.delayed(const Duration(seconds: 2), () {
+                  Navigator.pop(context);
+                });
+              } else if (!state.isLoading && !state.isSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Failed to register User. Try again.'),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
+            },
+          ),
+        ],
+        child: SafeArea(
           child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 30),
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Create ',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26.0,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Form(
+                key: _key,
+                child: Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          backgroundColor: Colors.grey[300],
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(20),
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: 'Account',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26.0,
+                          builder: (context) => Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    checkCameraPermission();
+                                    _browseImage(ImageSource.camera);
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(Icons.camera,
+                                      color: Colors.black),
+                                  label: const Text('Camera'),
+                                ),
+                                ElevatedButton.icon(
+                                  onPressed: () {
+                                    checkCameraPermission();
+                                    _browseImage(ImageSource.gallery);
+                                    Navigator.pop(context);
+                                  },
+                                  icon: const Icon(Icons.image,
+                                      color: Colors.black),
+                                  label: const Text('Gallery'),
+                                ),
+                              ],
+                            ),
                           ),
+                        );
+                      },
+                      child: SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage: _img != null
+                              ? FileImage(_img!)
+                              : const AssetImage('assets/images/pro.png')
+                                  as ImageProvider,
                         ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "By creating new account",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 50),
-                  TextFormField(
-                    controller: usernameController,
-                    decoration: InputDecoration(
-                      labelText: 'Username',
-                      labelStyle: TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.person, color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    validator: (value) =>
-                        value == null || value.isEmpty ? 'Please enter Username' : null,
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email Address',
-                      labelStyle: TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.email, color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(8),
+                    const SizedBox(height: 25),
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.email,
+                          size: 24,
+                        ),
+                        labelText: 'Email',
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    validator: (value) => value == null || !_isEmailValid(value)
-                        ? 'Please enter a valid Gmail address.'
-                        : null,
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.lock, color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    validator: (value) => value == null || !_isPasswordValid(value)
-                        ? 'Password must be at least 8 characters.'
-                        : null,
-                  ),
-                  const SizedBox(height: 20),
-                  TextFormField(
-                    controller: confirmPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      labelStyle: TextStyle(color: Colors.black),
-                      prefixIcon: Icon(Icons.lock, color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    validator: (value) => value == null || value != passwordController.text
-                        ? 'Passwords do not match.'
-                        : null,
-                  ),
-                  const SizedBox(height: 30),
-                  Container(
-                    width: double.infinity,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          _saveUserData();
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter email';
                         }
+                        return null;
+                      },
+                    ),
+                    _gap,
+                    TextFormField(
+                      controller: _usernameController,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.person,
+                          size: 24,
+                        ),
+                        labelText: 'Username',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter username';
+                        }
+                        return null;
+                      },
+                    ),
+                    _gap,
+                    TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          size: 24,
+                          color: Colors.black,
+                        ),
+                        suffixIcon: Icon(
+                          Icons.visibility,
+                          color: Colors.black,
+                          size: 24, // Size for the visibility icon
+                        ),
+                        labelText: 'Password',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter password';
+                        }
+                        return null;
+                      },
+                    ),
+                    _gap,
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (_key.currentState!.validate()) {
+                            final registerState =
+                                context.read<RegisterBloc>().state;
+                            final imageName = registerState.imageName;
+
+                            context.read<RegisterBloc>().add(RegisterUser(
+                                  email: _emailController.text,
+                                  username: _usernameController.text,
+                                  password: _passwordController.text,
+                                  image: imageName,
+                                ));
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          textStyle: const TextStyle(
+                            fontFamily: 'Nunito', // Font for the button text
+                          ),
+                        ),
+                        child: const Text('Register'),
+                      ),
+                    ),
+                    _gap,
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to the login screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginView()),
+                        );
                       },
                       child: const Text(
-                        'Register',
+                        'Already have an account? Login',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Nunito', // Font for the text
+                          fontSize: 16,
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'I already have an account? ',
-                        style: TextStyle(fontSize: 16.0),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const LoginView()),
-                          );
-                        },
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

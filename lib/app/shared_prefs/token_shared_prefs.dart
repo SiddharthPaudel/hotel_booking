@@ -1,20 +1,29 @@
-// app/shared_prefs/token_shared_prefs.dart
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenSharedPrefs {
-  final SharedPreferences _prefs;
+  static const String _keyToken = "token";
 
-  TokenSharedPrefs(this._prefs);
-
+  // Save the token
   Future<void> saveToken(String token) async {
-    await _prefs.setString('auth_token', token);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyToken, token);
   }
 
-  String? getToken() {
-    return _prefs.getString('auth_token');
+  // Retrieve the token
+  Future<String?> getToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_keyToken);
   }
 
+  // Clear the token
   Future<void> clearToken() async {
-    await _prefs.remove('auth_token');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_keyToken);
+  }
+
+  // Check if token exists
+  Future<bool> hasToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(_keyToken);
   }
 }

@@ -34,25 +34,17 @@ class HiveService {
   }
 
  
-  Future<UserHiveModel?> login(String email, String password) async {
+  Future<UserHiveModel?> loginUser(String email, String password) async {
     var box = await Hive.openBox<UserHiveModel>(HiveTableConstant.userBox);
-     try {
-      return box.values.firstWhere(
-        (element) => element.email == email && element.password == password,
-        // **Fixed: Return null if no user is found**
-      );
-    } catch (e) {
-      return null;
-    }
+    var auth = box.values.firstWhere(
+            (element) =>
+        element.username == email && element.password == password,
+        orElse: () => UserHiveModel.initial());
+
+    return auth;
   }
 
-// **Clear All Users**
-  Future<void> clearAll() async {
-    await Hive.deleteBoxFromDisk(HiveTableConstant.userBox);
   }
 
-  // **Close Hive**
-  Future<void> close() async {
-    await Hive.close();
-  }
-}
+
+

@@ -1,271 +1,182 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view/register_view.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/bottom_navigation_view.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
+import 'package:hotel_booking/features/bottom_navigation/presentation/view/home_view.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+  LoginView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  _LoginViewState createState() => _LoginViewState();
 }
 
 class _LoginViewState extends State<LoginView> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  String? _emailError;
-  String? _passwordError;
-  bool _rememberMe = false;
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController(text: 'kiran');
+  final _passwordController = TextEditingController(text: 'test12345');
 
-  // Separate validation function
-  void _validateForm() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
+  bool _isPasswordVisible = false; // To toggle password visibility
 
-    setState(() {
-      _emailError = null;
-      _passwordError = null;
-    });
-
-    // Email Validation (checks for @gmail.com domain)
-    if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$').hasMatch(email)) {
-      setState(() {
-        _emailError = 'Please enter a valid Gmail address.';
-      });
-    }
-
-    // Password Validation (checks for at least 8 characters)
-    if (password.length < 8) {
-      setState(() {
-        _passwordError = 'Password must be at least 8 characters long.';
-      });
-    }
-
-    // If no errors, attempt login
-    if (_emailError == null && _passwordError == null) {
-      _login();
-    }
-  }
-
-  void _login() async {
-    var userBox = await Hive.openBox('users');
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    if (userBox.containsKey(email)) {
-      Map<String, dynamic> userData = userBox.get(email);
-      if (userData["password"] == password) {
-        _showSuccessSnackBar("Login successful!");
-        Future.delayed(const Duration(seconds: 1), () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const BottomNavigationView()),
-          );
-        });
-      } else {
-        _showErrorSnackBar("Incorrect password. Try again.");
-      }
-    } else {
-      _showErrorSnackBar("No account found with this email.");
-    }
-  }
-
-  void _showSuccessSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.green,
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
-
-  void _showErrorSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
-        ),
-        backgroundColor: Colors.red,
-      ),
-    );
-  }
+  final _gap = const SizedBox(height: 16);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Welcome ',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 26.0,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Back',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 26.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  "Sign in to access your account",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
-                ),
-                const SizedBox(height: 50),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email Address',
-                    labelStyle: TextStyle(color: Colors.black),
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: Colors.black,
-                    ),
-                    errorText: _emailError,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.black),
-                    prefixIcon: Icon(
-                      Icons.lock,
-                      color: Colors.black,
-                    ),
-                    errorText: _passwordError,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Checkbox(
-                          value: _rememberMe,
-                          onChanged: (value) {
+                    // "Create Account" text with different colors
+                    RichText(
+                      text: TextSpan(
+                        text: 'Welcome ',
+                        style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontFamily: 'Nunito',
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Back',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                              fontFamily: 'Nunito',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    _gap, // Added gap
+                    _gap, // Added gap
+
+                    // Email TextField with Email Icon
+                    TextFormField(
+                      key: const ValueKey('email'),
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.email,
+                            color: Colors.black), // Black Email Icon
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                        labelStyle: const TextStyle(fontFamily: 'Nunito'),
+                      ),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter email';
+                        }
+                        return null;
+                      },
+                    ),
+                    _gap, // Gap between email and password fields
+
+                    // Password TextField with Eye Icon
+                    TextFormField(
+                      key: const ValueKey('password'),
+                      controller: _passwordController,
+                      obscureText:
+                          !_isPasswordVisible, // Toggle password visibility
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock,
+                            color: Colors.black), // Black Lock Icon
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility, // Eye Icon
+                            color: Colors.black, // Black Eye Icon
+                          ),
+                          onPressed: () {
                             setState(() {
-                              _rememberMe = value!;
+                              _isPasswordVisible =
+                                  !_isPasswordVisible; // Toggle visibility
                             });
                           },
-                          activeColor: Colors.blue,
-                          checkColor: Colors.white,
                         ),
-                        const Text('Remember Me'),
-                      ],
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        // Add your forget password action here
-                      },
-                      child: const Text(
-                        'Forget Password?',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.blue,
-                        ),
+                        border: OutlineInputBorder(),
+                        labelText: 'Password',
+                        labelStyle: const TextStyle(fontFamily: 'Nunito'),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                Container(
-                  width: double.infinity,
-                  height: 50.0,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: TextButton(
-                    onPressed: _validateForm,  // Use validation before login
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 25),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Does not have an account? ',
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RegisterView(),
-                          ),
-                        );
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter password';
+                        }
+                        return null;
                       },
-                      child: const Text(
-                        'Signup',
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          color: Colors.blue,
+                    ),
+                    _gap, // Gap between password field and button
+
+                    // Login Button
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          final email = _emailController.text.trim();
+                          final password = _passwordController.text.trim();
+
+                          context.read<LoginBloc>().add(
+                                LoginUserEvent(
+                                  email: email,
+                                  password: password,
+                                  context: context,
+                                  destination: HomeView(),
+                                ),
+                              );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          fontFamily:
+                              'Nunito', // Set Nunito font to button text
+                        ),
+                      ),
+                      child: const SizedBox(
+                        height: 50,
+                        child: Center(
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Nunito',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    _gap, // Gap between button and sign-up text
+
+                    // Sign-up navigation text
+                    TextButton(
+                      onPressed: () {
+                        context.read<LoginBloc>().add(
+                              NavigateRegisterScreenEvent(
+                                context: context,
+                                destination: RegisterView(),
+                              ),
+                            );
+                      },
+                      child: const Text(
+                        "Don't have an account? Sign Up",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontFamily:
+                              'Nunito', // Set Nunito font to TextButton text
                         ),
                       ),
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

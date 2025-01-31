@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:hotel_booking/core/error/failure.dart';
 import 'package:hotel_booking/features/auth/data/data_source/local_datasource/user_local_datasource.dart';
@@ -21,11 +23,11 @@ class UserLocalRepository implements IUserRepository {
   }
 
   @override
-  Future<Either<Failure, String>> loginUser(
+  Future<Either<Failure, UserEntity>> login(
       String email, String password) async {
     try {
-      final token = await _userLocalDataSource.loginUser(email, password);
-      return Right(token);
+      final user = await _userLocalDataSource.login(email, password);
+      return (Right(user));
     } catch (e) {
       return Left(LocalDatabaseFailure(message: e.toString()));
     }
@@ -38,5 +40,11 @@ class UserLocalRepository implements IUserRepository {
     } catch (e) {
       return Left(LocalDatabaseFailure(message: e.toString()));
     }
+  }
+
+  @override
+  Future<Either<Failure, String>> uploadImage(File file) {
+    // TODO: implement uploadImage
+    throw UnimplementedError();
   }
 }

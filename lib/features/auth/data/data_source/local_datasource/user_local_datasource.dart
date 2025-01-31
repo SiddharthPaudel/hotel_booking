@@ -3,13 +3,11 @@ import 'package:hotel_booking/features/auth/data/data_source/user_data_source.da
 import 'package:hotel_booking/features/auth/data/model/user_hive_model.dart';
 import 'package:hotel_booking/features/auth/domain/entity/user_entity.dart';
 
-
-
 class UserLocalDatasource implements IUserDataSource {
   final HiveService _hiveService;
 
   UserLocalDatasource(this._hiveService);
-     @override
+  @override
   Future<UserEntity> getCurrentUser() {
     // Return Empty AuthEntity
     return Future.value(const UserEntity(
@@ -21,12 +19,12 @@ class UserLocalDatasource implements IUserDataSource {
   }
 
   @override
-  Future<String> loginUser(String email, String password) async {
+  Future<UserEntity> login(String email, String password) async {
     try {
-      final user = await _hiveService.login(email, password);
-      return Future.value("Login successful");
+      final userHiveModel = await _hiveService.loginUser(email, password);
+      return userHiveModel!.toEntity();
     } catch (e) {
-      return Future.error(e);
+      throw Exception(e);
     }
   }
 
@@ -41,6 +39,12 @@ class UserLocalDatasource implements IUserDataSource {
     } catch (e) {
       return Future.error(e);
     }
+  }
+  
+  @override
+  Future<String> loginUser(String email, String password) {
+    // TODO: implement loginUser
+    throw UnimplementedError();
   }
   
   
