@@ -21,7 +21,7 @@ Future<void> initDependencies() async {
   await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
-  // await _initOnboardingDependencies();
+  await _initOnboardingDependencies();
   await _initSplashScreenDependencies();
 }
 
@@ -86,17 +86,16 @@ _initLoginDependencies() async {
   );
 }
 
-// _initOnboardingDependencies() async {
-//   // Register any dependencies related to the onboarding screen, if needed.
-//   // Example: A cubit or bloc for onboarding:
-//   getIt.registerFactory<OnboardingCubit>(
-//     () => OnboardingCubit(),
-//   );
-// }
+_initOnboardingDependencies() async {
+  // Register any dependencies related to the onboarding screen, if needed.
+  // Example: A cubit or bloc for onboarding:
+  getIt.registerFactory<OnboardingCubit>(
+    () => OnboardingCubit(),
+  );
+}
 
 _initSplashScreenDependencies() async {
   getIt.registerFactory<SplashCubit>(
     () => SplashCubit(getIt<LoginBloc>()),
   );
 }
-

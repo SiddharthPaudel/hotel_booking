@@ -21,8 +21,8 @@ class HomeView extends StatelessWidget {
           return BottomNavigationBar(
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard),
-                label: 'Dashboard',
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.book),

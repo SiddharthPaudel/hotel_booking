@@ -7,100 +7,132 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
-        backgroundColor: Colors.blue,
+        title: const Text('Profile',
+            style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
         centerTitle: true,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            // Profile Picture Section
-            Center(
-              child: CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(
-                  'https://www.example.com/path_to_your_image.jpg', // Example image URL, replace with user image URL or local asset
+      body: Stack(
+        children: [
+          // Background Image
+          // Positioned.fill(
+          //   // child: Image.asset(
+          //   //   'assets/images/pro.png', // Replace with your actual asset image path
+          //   //   fit: BoxFit.cover,
+          //   // ),
+          // ),
+          SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Profile Picture
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: AssetImage(
+                      'assets/images/pro.png'), // Replace with your actual asset image path
                 ),
-              ),
-            ),
-            const SizedBox(height: 20),
+                const SizedBox(height: 16),
 
-            // Name
-            const ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('John Doe'),
-              subtitle: Text('Full Name'),
-            ),
-            const Divider(),
-
-            // Email
-            const ListTile(
-              leading: Icon(Icons.email),
-              title: Text('john.doe@example.com'),
-              subtitle: Text('Email Address'),
-            ),
-            const Divider(),
-
-            // Phone Number (Editable)
-            TextFormField(
-              initialValue: '123-456-7890', // Example phone number
-              decoration: const InputDecoration(
-                labelText: 'Phone Number',
-                prefixIcon: Icon(Icons.phone),
-              ),
-              keyboardType: TextInputType.phone,
-            ),
-            const Divider(),
-
-            // Address (Editable)
-            TextFormField(
-              initialValue: '123 Main St, Springfield, IL', // Example address
-              decoration: const InputDecoration(
-                labelText: 'Address',
-                prefixIcon: Icon(Icons.home),
-              ),
-            ),
-            const Divider(),
-
-            // Edit Profile Button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Add functionality to navigate to edit profile screen or save changes
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Edit Profile clicked')),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                // Name
+                const Text(
+                  'John Doe',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                child: const Text('Edit Profile'),
-              ),
-            ),
-
-            // Log Out Button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Log out functionality goes here
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Logging Out')),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                const SizedBox(height: 4),
+                const Text(
+                  'john.doe@example.com',
+                  style: TextStyle(fontSize: 16, color: Colors.grey),
                 ),
-                child: const Text('Log Out'),
-              ),
+                const SizedBox(height: 20),
+
+                // Information Section
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  elevation: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        _buildInfoRow(
+                            Icons.phone, 'Phone Number', '123-456-7890'),
+                        const Divider(),
+                        _buildInfoRow(Icons.home, 'Address',
+                            '123 Main St, Springfield, IL'),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // Buttons
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Edit Profile clicked')),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      padding: const EdgeInsets.symmetric(vertical: 14.0),
+                    ),
+                    child: const Text('Edit Profile',
+                        style: TextStyle(fontSize: 16)),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Logging Out')),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8)),
+                      padding: const EdgeInsets.symmetric(vertical: 14.0),
+                    ),
+                    child:
+                        const Text('Log Out', style: TextStyle(fontSize: 16)),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(IconData icon, String title, String value) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.blue, size: 28),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title,
+                  style: const TextStyle(fontSize: 14, color: Colors.grey)),
+              const SizedBox(height: 4),
+              Text(value,
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500)),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
