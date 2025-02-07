@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_state.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/login_user_usecase.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:hotel_booking/features/bottom_navigation/presentation/view/home_view.dart';
 import '../../../../../core/common/snackbar/my_snackbar.dart';
 import '../../../../bottom_navigation/presentation/view_model/home_cubit.dart';
 
@@ -49,42 +50,31 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // Handle login event
     on<LoginUserEvent>((event, emit) async {
       emit(state.copyWith(isLoading: true));
-
-      final params = LoginUserParams(
-        email: event.email,
-        password: event.password,
+      final result = await _loginUserUsecase(
+        LoginUserParams(
+          email: event.email,
+          password: event.password,
+        ),
       );
-
-      final result = await _loginUserUsecase.call(params);
-
-      print('Login response: $result');
 
       result.fold(
         (failure) {
-          // If the failure has a message, use it; otherwise, use a fallback
-          String errorMessage = failure.message;
-
-          // Handle failure (update the state with error message or show a failure alert)
           emit(state.copyWith(isLoading: false, isSuccess: false));
-
           showMySnackBar(
             context: event.context,
-            // message: errorMessage,
             message: "Invalid Credentials",
-            color: Color(0xFF9B6763),
+            color: Colors.red,
           );
         },
-        (student) {
-          // On success, update state and navigate to the home screen
+        (token) {
           emit(state.copyWith(isLoading: false, isSuccess: true));
-
-          // Trigger navigation
           add(
             NavigateHomeScreenEvent(
               context: event.context,
-              destination: event.destination,
+              destination: const HomeView(),
             ),
           );
+          //_homeCubit.setToken(token);
         },
       );
     });

@@ -13,7 +13,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController(text: 'kiran');
+  final _emailController = TextEditingController(text: 'siddhartha');
   final _passwordController = TextEditingController(text: 'test12345');
 
   bool _isPasswordVisible = false; // To toggle password visibility
@@ -126,7 +126,6 @@ class _LoginViewState extends State<LoginView> {
                                   email: email,
                                   password: password,
                                   context: context,
-                                  destination: HomeView(),
                                 ),
                               );
                         }

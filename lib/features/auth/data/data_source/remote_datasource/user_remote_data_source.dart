@@ -71,45 +71,27 @@ class UserRemoteDataSource {
   }
 
   /// Logs in a student
-  Future<LoginResponseEntity> login(String email, String password) async {
+  @override
+  Future<String> login(String email, String password) async {
     try {
-      var response = await _dio.post(
-        ApiEndpoints.loginUser,
+      Response response = await _dio.post(
+        ApiEndpoints.login,
         data: {
           'email': email,
           'password': password,
         },
       );
 
-      print('Response Data: ${response.data}');
-
-      // Check if response is not null and has statusCode 200
-      if (response.statusCode == 200 && response.data != null) {
-        var responseData = response.data;
-
-        // Ensure the response contains necessary data, including 'token'
-        String? token = responseData['token'];
-
-        if (token != null) {
-          // Safely handle nullable fields
-          return LoginResponseEntity(
-            user: UserEntity(
-              username: '',
-              email: '',
-              password: '',
-            ),
-            token: token,
-          );
-        } else {
-          throw Exception('Response does not contain valid token');
-        }
+      if (response.statusCode == 200) {
+        final token = response.data['user']['token'] as String;
+        return token;
       } else {
-        throw Exception('Invalid response: ${response.statusMessage}');
+        throw Exception(response.statusMessage);
       }
     } on DioException catch (e) {
-      throw Exception('Dio Error: ${e.message ?? 'Unknown error'}');
+      throw Exception(e.message);
     } catch (e) {
-      throw Exception('An unexpected error occurred: $e');
+      throw Exception(e.toString());
     }
   }
 

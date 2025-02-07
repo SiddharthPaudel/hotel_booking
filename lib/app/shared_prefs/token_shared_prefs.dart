@@ -1,29 +1,32 @@
+import 'package:dartz/dartz.dart';
+import 'package:hotel_booking/core/error/failure.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenSharedPrefs {
-  static const String _keyToken = "token";
+  final SharedPreferences _sharedPreferences;
 
-  // Save the token
-  Future<void> saveToken(String token) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_keyToken, token);
+  TokenSharedPrefs(this._sharedPreferences);
+
+ Future<Either<Failure, void>> saveToken(String token) async {
+  try {
+    final success = await _sharedPreferences.setString('token', token);
+    if (success) {
+      print("Token saved successfully: $token");
+      return Right(null);
+    } else {
+      return Left(SharedPrefsFailure(message: "Failed to save token"));
+    }
+  } catch (e) {
+    return Left(SharedPrefsFailure(message: e.toString()));
   }
+}
 
-  // Retrieve the token
-  Future<String?> getToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyToken);
-  }
-
-  // Clear the token
-  Future<void> clearToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_keyToken);
-  }
-
-  // Check if token exists
-  Future<bool> hasToken() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey(_keyToken);
+  Future<Either<Failure, String>> getToken() async {
+    try {
+      final token = _sharedPreferences.getString('token');
+      return Right(token ?? '');
+    } catch (e) {
+      return Left(SharedPrefsFailure(message: e.toString()));
+    }
   }
 }

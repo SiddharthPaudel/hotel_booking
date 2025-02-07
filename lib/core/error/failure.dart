@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 abstract class Failure {
   final String message;
   final int? statusCode;
@@ -22,6 +24,19 @@ class ApiFailure extends Failure {
 
   ApiFailure({
     this.statusCode,
+    required super.message,
+  });
+}
+
+class SharedPrefsFailure extends Failure {
+  SharedPrefsFailure({
+    required super.message,
+  });
+}
+
+class ServerFailure extends Failure {
+  ServerFailure({
+    super.statusCode,
     required super.message,
   });
 }

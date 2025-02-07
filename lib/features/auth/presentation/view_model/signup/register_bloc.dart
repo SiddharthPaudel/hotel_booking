@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/register_user_usecase.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/upload_image_usercase.dart';
-
+import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_state.dart';
 
 part 'register_event.dart';
-part 'register_state.dart';
+
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterUsecase _registerUsecase;

@@ -10,7 +10,8 @@ import 'package:hotel_booking/features/auth/domain/repository/user_repository.da
 class UserLocalRepository implements IUserRepository {
   final UserLocalDatasource _userLocalDataSource;
 
-  UserLocalRepository(this._userLocalDataSource);
+  UserLocalRepository({required UserLocalDatasource userLocalDataSource})
+   : _userLocalDataSource = userLocalDataSource;
 
   @override
   Future<Either<Failure, UserEntity>> getCurrentUser() async {
@@ -22,16 +23,19 @@ class UserLocalRepository implements IUserRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, UserEntity>> login(
-      String email, String password) async {
+   @override
+  Future<Either<Failure, String>> login(
+    String email,
+    String password,
+  ) async{
     try {
-      final user = await _userLocalDataSource.login(email, password);
-      return (Right(user));
+      final token = await _userLocalDataSource.loginUser(email, password);
+      return Right(token);
     } catch (e) {
       return Left(LocalDatabaseFailure(message: e.toString()));
     }
   }
+
 
   @override
   Future<Either<Failure, void>> registerUser(UserEntity user) async {
@@ -45,6 +49,18 @@ class UserLocalRepository implements IUserRepository {
   @override
   Future<Either<Failure, String>> uploadImage(File file) {
     // TODO: implement uploadImage
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, void>> deleteUser(String id) {
+    // TODO: implement deleteUser
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, List<UserEntity>>> getAllUsers() {
+    // TODO: implement getAllUsers
     throw UnimplementedError();
   }
 }

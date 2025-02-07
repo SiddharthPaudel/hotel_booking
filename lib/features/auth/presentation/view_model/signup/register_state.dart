@@ -1,6 +1,7 @@
-part of 'register_bloc.dart';
 
-class RegisterState {
+import 'package:equatable/equatable.dart';
+
+class RegisterState extends Equatable {
   final bool isLoading;
   final bool isSuccess;
   final bool isImageLoading;
@@ -14,6 +15,15 @@ class RegisterState {
     required this.isImageSuccess,
     this.imageName,
   });
+
+  @override
+  List<Object?> get props => [
+        isLoading,
+        isSuccess,
+        isImageLoading,
+        isImageSuccess,
+        imageName,
+      ];
 
   RegisterState.initial()
       : isLoading = false,

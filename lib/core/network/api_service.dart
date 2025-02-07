@@ -18,27 +18,7 @@ class ApiService {
           requestHeader: true, requestBody: true, responseHeader: true))
       ..options.headers = {
         'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       };
-  }
-
-  Future<Map<String, dynamic>?> loginUser(String email, String password) async {
-    try {
-      final response = await _dio.post(
-        ApiEndpoints.loginUser,
-        data: {
-          'email': email,
-          'password': password,
-        },
-      );
-
-      if (response.statusCode == 200 && response.data['success'] == true) {
-        return response
-            .data['user']; // Assuming the API returns student info.
-      }
-    } catch (e) {
-      rethrow; // Propagate error for further handling.
-    }
-    return null; // Return null if login fails.
   }
 }

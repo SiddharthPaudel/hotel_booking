@@ -4,7 +4,7 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
     required this.onPressed,
-    required this.text,
+    required this.text, required Color textColor, required double width, required double fontSize, required double verticalPadding,
   });
 
   final void Function() onPressed;

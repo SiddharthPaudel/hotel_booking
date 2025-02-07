@@ -1,27 +1,24 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 
-class OnboardingState {
-  final int currentPage;
-  final bool isCompleted;
 
-  OnboardingState({required this.currentPage, this.isCompleted = false});
+class OnboardingCubit extends Cubit<void> {
+  OnboardingCubit(this._loginBloc) : super(null);
 
-  OnboardingState copyWith({int? currentPage, bool? isCompleted}) {
-    return OnboardingState(
-      currentPage: currentPage ?? this.currentPage,
-      isCompleted: isCompleted ?? this.isCompleted,
-    );
-  }
-}
+  final LoginBloc _loginBloc;
 
-class OnboardingCubit extends Cubit<OnboardingState> {
-  OnboardingCubit() : super(OnboardingState(currentPage: 0));
-
-  void updatePage(int page) {
-    emit(state.copyWith(currentPage: page));
-  }
-
-  void completeOnboarding() {
-    emit(state.copyWith(isCompleted: true));
+  void navigateToLogin(BuildContext context) {
+    if (context.mounted) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BlocProvider.value(
+              value: _loginBloc,
+              child: LoginView(),
+            ),
+          ));
+    }
   }
 }
