@@ -1,14 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hotel_booking/app/constants/api_endpoints.dart';
 import 'package:hotel_booking/features/auth/data/model/user_api_model.dart';
 import 'package:hotel_booking/features/auth/domain/entity/user_entity.dart';
-
-import '../../../domain/entity/login_response_entity.dart';
+import 'package:http/http.dart' as http;
 
 class UserRemoteDataSource {
   final Dio _dio;
+  final String _baseUrl = ApiEndpoints.baseUrl;
 
   UserRemoteDataSource(this._dio);
 
@@ -73,25 +74,27 @@ class UserRemoteDataSource {
   /// Logs in a student
   @override
   Future<String> login(String email, String password) async {
-    try {
-      Response response = await _dio.post(
-        ApiEndpoints.login,
-        data: {
-          'email': email,
-          'password': password,
-        },
-      );
+    // Prepare the body as JSON
+    final body = json.encode({
+      'email': email,
+      'password': password,
+    });
 
-      if (response.statusCode == 200) {
-        final token = response.data['user']['token'] as String;
-        return token;
-      } else {
-        throw Exception(response.statusMessage);
-      }
-    } on DioException catch (e) {
-      throw Exception(e.message);
-    } catch (e) {
-      throw Exception(e.toString());
+    // Make the POST request with the correct headers
+    final response = await http.post(
+      Uri.parse("$_baseUrl${ApiEndpoints.login}"),
+      body: body,
+      headers: {
+        "Content-Type": "application/json", // Correct Content-Type header
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the response body and extract token or other relevant data
+      final responseData = json.decode(response.body);
+      return responseData['token']; // Adjust based on actual response structure
+    } else {
+      throw Exception('Failed to login');
     }
   }
 
@@ -118,4 +121,10 @@ class UserRemoteDataSource {
       throw Exception('Unexpected error: $e');
     }
   }
+
+
+
+  /// Gets the current user details
+
+
 }

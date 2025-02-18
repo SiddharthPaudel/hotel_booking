@@ -5,7 +5,8 @@ import 'package:hotel_booking/core/theme/app_theme.dart';
 
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/view_model/home_cubit.dart';
+
+import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
 import 'package:hotel_booking/features/splash/presentation/view/splash_view.dart';
 import 'package:hotel_booking/features/splash/presentation/view_model/splash_cubit.dart';
 

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:hotel_booking/app/constants/api_endpoints.dart';
 import 'package:hotel_booking/core/error/failure.dart';
 import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/user_remote_data_source.dart';
 import 'package:hotel_booking/features/auth/domain/entity/user_entity.dart';
@@ -8,6 +9,9 @@ import 'package:hotel_booking/features/auth/domain/repository/user_repository.da
 
 class UserRemoteRepository implements IUserRepository {
   final UserRemoteDataSource _userRemoteDataSource;
+
+
+  
 
   UserRemoteRepository(this._userRemoteDataSource);
 
@@ -34,11 +38,7 @@ class UserRemoteRepository implements IUserRepository {
     }
   }
 
-  @override
-  Future<Either<Failure, UserEntity>> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
-  }
+
 
   @override
   Future<Either<Failure, String>> login(
@@ -67,4 +67,12 @@ class UserRemoteRepository implements IUserRepository {
     // TODO: implement getAllUsers
     throw UnimplementedError();
   }
+  
+  @override
+  Future<Either<Failure, UserEntity>> getCurrentUser() {
+    // TODO: implement getCurrentUser
+    throw UnimplementedError();
+  }
+
+    
 }

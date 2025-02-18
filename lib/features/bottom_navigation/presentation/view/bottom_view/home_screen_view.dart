@@ -35,123 +35,131 @@ class HomeScreenView extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Date, Guests, and Search Bar
-            Row(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            // Check if the screen is larger (tablet or desktop)
+            bool isTablet = constraints.maxWidth > 600;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "24 OCT - 26 OCT",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue),
+                // Date, Guests, and Search Bar
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "24 OCT - 26 OCT",
+                            style: TextStyle(
+                                fontSize: isTablet ? 18 : 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          Text("3 guests",
+                              style: TextStyle(color: Colors.blue)),
+                        ],
                       ),
-                      Text("3 guests", style: TextStyle(color: Colors.blue)),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                // Search Bar
+                TextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: "Search Hotel By Name",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          color: Color(0xFF007EF2)), // Use hex color for border
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                          color: Color(0xFF007EF2),
+                          width: 2), // Focused border with blue color
+                    ),
+                    filled: false,
+                    fillColor: Colors.white,
+                  ),
+                ),
+                SizedBox(height: 16),
+                // Recommended Hotels Section
+                Text(
+                  "Recommended Hotels",
+                  style: TextStyle(
+                      fontSize: isTablet ? 22 : 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+                SizedBox(height: 8),
+                // Use Expanded to prevent overflow in ListView
+                SizedBox(
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      HotelCard(
+                        imagePath: 'assets/images/hotel1.jpg',
+                        name: 'AYANA Resort',
+                        location: 'Pokhara',
+                      ),
+                      SizedBox(width: 10),
+                      HotelCard(
+                        imagePath: 'assets/images/hotel2.png',
+                        name: 'COMO Uma Resort',
+                        location: 'Pokhara',
+                      ),
+                      SizedBox(width: 10),
+                      HotelCard(
+                        imagePath: 'assets/images/hotel3.png',
+                        name: 'Ritz-Carlton',
+                        location: 'Pokhara',
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 13),
+                // Business Accommodations Section (Explore More)
+                Text(
+                  "Explore More",
+                  style: TextStyle(
+                      fontSize: isTablet ? 22 : 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+                SizedBox(height: 8),
+                // Use Expanded to prevent overflow in ListView
+                SizedBox(
+                  height: 200,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      HotelCard(
+                        imagePath: 'assets/images/hotel4.jpeg',
+                        name: 'Intercontinental',
+                        location: 'Pokhara',
+                      ),
+                      SizedBox(width: 10),
+                      HotelCard(
+                        imagePath: 'assets/images/hotel1.jpg',
+                        name: 'Hilton Garden Inn',
+                        location: 'Pokhara',
+                      ),
+                      SizedBox(width: 10),
+                      HotelCard(
+                        imagePath: 'assets/images/hotel3.png',
+                        name: 'Sheraton',
+                        location: 'Pokhara',
+                      ),
                     ],
                   ),
                 ),
               ],
-            ),
-            SizedBox(height: 16),
-            // Search Bar
-            TextField(
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: "Search Hotel By Name",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                      color: Color(0xFF007EF2)), // Use hex color for border
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                      color: Color(0xFF007EF2),
-                      width: 2), // Focused border with blue color
-                ),
-                filled: false,
-                fillColor: Colors.white,
-              ),
-            ),
-            SizedBox(height: 16),
-            // Recommended Hotels Section
-            Text(
-              "Recommended Hotels",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue),
-            ),
-            SizedBox(height: 8),
-            // Use Expanded to prevent overflow in ListView
-            SizedBox(
-              height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  HotelCard(
-                    imagePath: 'assets/images/hotel1.jpg',
-                    name: 'AYANA Resort',
-                    location: 'Pokhara',
-                  ),
-                  SizedBox(width: 10),
-                  HotelCard(
-                    imagePath: 'assets/images/hotel2.png',
-                    name: 'COMO Uma Resort',
-                    location: 'Pokhara',
-                  ),
-                  SizedBox(width: 10),
-                  HotelCard(
-                    imagePath: 'assets/images/hotel3.png',
-                    name: 'Ritz-Carlton',
-                    location: 'Pokhara',
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 13),
-            // Business Accommodations Section (Explore More)
-            Text(
-              "Explore More",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue),
-            ),
-            SizedBox(height: 8),
-            // Use Expanded to prevent overflow in ListView
-            SizedBox(
-              height: 200,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  HotelCard(
-                    imagePath: 'assets/images/hotel4.jpeg',
-                    name: 'Intercontinental',
-                    location: 'Pokhara',
-                  ),
-                  SizedBox(width: 10),
-                  HotelCard(
-                    imagePath: 'assets/images/hotel1.jpg',
-                    name: 'Hilton Garden Inn',
-                    location: 'Pokhara',
-                  ),
-                  SizedBox(width: 10),
-                  HotelCard(
-                    imagePath: 'assets/images/hotel3.png',
-                    name: 'Sheraton',
-                    location: 'Pokhara',
-                  ),
-                ],
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

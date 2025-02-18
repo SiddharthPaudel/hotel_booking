@@ -12,7 +12,8 @@ import 'package:hotel_booking/features/auth/domain/use_case/register_user_usecas
 import 'package:hotel_booking/features/auth/domain/use_case/upload_image_usercase.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/view_model/home_cubit.dart';
+
+import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
 import 'package:hotel_booking/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:hotel_booking/features/splash/presentation/view_model/splash_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';

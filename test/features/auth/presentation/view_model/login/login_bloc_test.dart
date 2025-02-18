@@ -7,7 +7,8 @@ import 'package:hotel_booking/core/error/failure.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/login_user_usecase.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/view_model/home_cubit.dart';
+
+import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockRegisterBloc extends Mock implements RegisterBloc {}

@@ -1,185 +1,158 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/app/widget/custom_elevated_button.dart';
+import 'package:hotel_booking/core/common/widgets/custom_text_field.dart';
 import 'package:hotel_booking/features/auth/presentation/view/register_view.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/view/home_view.dart';
 
-class LoginView extends StatefulWidget {
+
+class LoginView extends StatelessWidget {
   LoginView({super.key});
 
-  @override
-  _LoginViewState createState() => _LoginViewState();
-}
-
-class _LoginViewState extends State<LoginView> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController(text: 'siddhartha');
-  final _passwordController = TextEditingController(text: 'test12345');
-
-  bool _isPasswordVisible = false; // To toggle password visibility
-
-  final _gap = const SizedBox(height: 16);
+  final _loginFormKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: Center(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  children: [
-                    // "Create Account" text with different colors
-                    RichText(
-                      text: TextSpan(
-                        text: 'Welcome ',
-                        style: const TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontFamily: 'Nunito',
-                        ),
-                        children: [
-                          TextSpan(
-                            text: 'Back',
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blue,
-                              fontFamily: 'Nunito',
-                            ),
-                          ),
-                        ],
-                      ),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Form(
+              key: _loginFormKey,  // Wrap the form with the form key
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Logo with elephants and design
+                  // Image.asset(
+                  //   'assets/images/logo.png', // Add your logo image path here
+                  //   height: 200,
+                  // ),
+                  const SizedBox(height: 24),
+
+                  // Welcome text
+                  const Text(
+                    "Welcome back",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
-                    _gap, // Added gap
-                    _gap, // Added gap
-
-                    // Email TextField with Email Icon
-                    TextFormField(
-                      key: const ValueKey('email'),
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.email,
-                            color: Colors.black), // Black Email Icon
-                        border: OutlineInputBorder(),
-                        labelText: 'Email',
-                        labelStyle: const TextStyle(fontFamily: 'Nunito'),
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter email';
-                        }
-                        return null;
-                      },
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    "Sign in to access your account",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
                     ),
-                    _gap, // Gap between email and password fields
+                  ),
+                  const SizedBox(height: 32),
 
-                    // Password TextField with Eye Icon
-                    TextFormField(
-                      key: const ValueKey('password'),
-                      controller: _passwordController,
-                      obscureText:
-                          !_isPasswordVisible, // Toggle password visibility
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.lock,
-                            color: Colors.black), // Black Lock Icon
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility_off
-                                : Icons.visibility, // Eye Icon
-                            color: Colors.black, // Black Eye Icon
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _isPasswordVisible =
-                                  !_isPasswordVisible; // Toggle visibility
-                            });
-                          },
-                        ),
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
-                        labelStyle: const TextStyle(fontFamily: 'Nunito'),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter password';
-                        }
-                        return null;
-                      },
-                    ),
-                    _gap, // Gap between password field and button
+                  // Email TextField
+                  CustomTextField(
+                    controller: _emailController,
+                    validator: ValidateLogin.emailValidate, // Add validator here
+                    keyboardType: TextInputType.emailAddress,
+                    hintText: 'Enter your email',
+                  ),
+                  const SizedBox(height: 16),
 
-                    // Login Button
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          final email = _emailController.text.trim();
-                          final password = _passwordController.text.trim();
+                  // Password TextField
+                  CustomTextField(
+                    controller: _passwordController,
+                    validator: ValidateLogin.passwordValidate, // Add validator here
+                    keyboardType: TextInputType.visiblePassword,
+                    hintText: 'Password',
+                  ),
+                  const SizedBox(height: 8),
 
-                          context.read<LoginBloc>().add(
-                                LoginUserEvent(
-                                  email: email,
-                                  password: password,
-                                  context: context,
-                                ),
-                              );
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        textStyle: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          fontFamily:
-                              'Nunito', // Set Nunito font to button text
-                        ),
-                      ),
-                      child: const SizedBox(
-                        height: 50,
-                        child: Center(
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Nunito',
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    _gap, // Gap between button and sign-up text
-
-                    // Sign-up navigation text
-                    TextButton(
-                      onPressed: () {
-                        context.read<LoginBloc>().add(
-                              NavigateRegisterScreenEvent(
-                                context: context,
-                                destination: RegisterView(),
-                              ),
-                            );
+                  // Forgot password button
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed("/forget-password");
                       },
                       child: const Text(
-                        "Don't have an account? Sign Up",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontFamily:
-                              'Nunito', // Set Nunito font to TextButton text
-                        ),
+                        "Forgot password?",
+                        style: TextStyle(color: Colors.redAccent),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Login button
+                  SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                      text: "Login",
+                      onPressed: () async {
+                        if (_loginFormKey.currentState!.validate()) {
+                          // Proceed with login if the form is valid
+                          context.read<LoginBloc>().add(
+                            LoginUserEvent(
+                              context: context,
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          );
+                        }
+                      },
+                      width: double.infinity,
+                      textColor: Colors.white,
+                      verticalPadding: 18.0,
+                      fontSize: 18.0,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Register now
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("New Member? "),
+                      TextButton(
+                        onPressed: () {
+                          context.read<LoginBloc>().add(
+                            NavigateRegisterScreenEvent(
+                              context: context,
+                              destination: const RegisterView(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Register now",
+                          style: TextStyle(color: Colors.redAccent),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+class ValidateLogin {
+  static String? emailValidate(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Email is required';
+    }
+    return null;
+  }
+
+  static String? passwordValidate(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Password is required';
+    }
+    return null;
   }
 }

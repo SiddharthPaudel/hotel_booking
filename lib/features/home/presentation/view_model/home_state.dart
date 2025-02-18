@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/view/bottom_view/booking_view.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/view/bottom_view/home_screen_view.dart';
-import 'package:hotel_booking/features/bottom_navigation/presentation/view/bottom_view/profile_view.dart';
+import 'package:hotel_booking/features/dashboard/presentation/view/dashboard_view.dart';
+
+
+
 
 class HomeState extends Equatable {
   final int selectedIndex;
@@ -15,12 +16,24 @@ class HomeState extends Equatable {
 
   // Initial state
   static HomeState initial() {
-    return HomeState(
+    return const HomeState(
       selectedIndex: 0,
       views: [
-        HomeScreenView(), // Added Dashboard view
-        BookingView(), // Placeholder for Batches
-        ProfileView()
+        Center(
+          child: DashboardView(),
+        ),
+        Center(
+          child: Text('Chats'),
+        ),
+        Center(
+          child: Text('Sell'),
+        ),
+        Center(
+          child: Text('My Ads'),
+        ),
+        Center(
+          child: Text('Account'),
+        ),
       ],
     );
   }
