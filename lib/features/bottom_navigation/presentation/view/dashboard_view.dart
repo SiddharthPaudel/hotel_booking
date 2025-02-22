@@ -3,8 +3,6 @@ import 'package:hotel_booking/features/bottom_navigation/presentation/view/botto
 import 'package:hotel_booking/features/bottom_navigation/presentation/view/bottom_view/home_screen_view.dart';
 import 'package:hotel_booking/features/bottom_navigation/presentation/view/bottom_view/profile_view.dart';
 
-
-
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
 
@@ -18,8 +16,7 @@ class _BottomNavigationViewState extends State<DashboardView> {
   final List<Widget> _screens = [
     HomeScreenView(),
     const BookingView(),
-    const ProfileView(),
-    const ProfileView(),
+    ProfileView(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,12 +44,12 @@ class _BottomNavigationViewState extends State<DashboardView> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.bookmark),
-              label: 'Bookmark',
+              label: 'Booking',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long_rounded),
-              label: 'Order',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.receipt_long_rounded),
+            //   label: 'Order',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',

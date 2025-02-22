@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel_booking/app/widget/custom_elevated_button.dart';
-import 'package:hotel_booking/core/common/widgets/onboarding_element.dart';
 import 'package:hotel_booking/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -13,7 +11,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final pageController = PageController();
+  final PageController pageController = PageController();
 
   @override
   void dispose() {
@@ -24,59 +22,92 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              SizedBox(
-                  height: 670,
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Column(
+              children: [
+                Expanded(
                   child: PageView(
                     controller: pageController,
-                    allowImplicitScrolling: true,
-                    children: const [
-                      OnboardingElement(
-                        subtitle:
-                            "Explore a wide variety of books to buy and sell at your convenience",
+                    children: [
+                      buildOnboardingPage(
+                        subtitle: "Explore a wide variety of books to buy and sell at your convenience",
                         imagePath: "assets/images/introduction1.png",
+                        constraints: constraints,
                       ),
-                      OnboardingElement(
-                        subtitle:
-                            "Buy and sell books with confidence through a secure platform",
+                      buildOnboardingPage(
+                        subtitle: "Buy and sell books with confidence through a secure platform",
                         imagePath: "assets/images/introduction2.png",
+                        constraints: constraints,
                       ),
-                      OnboardingElement(
-                        subtitle:
-                            "Engage with a community of readers and book lovers",
-                        imagePath: 'assets/images/introduction3.png',
+                      buildOnboardingPage(
+                        subtitle: "Engage with a community of readers and book lovers",
+                        imagePath: "assets/images/introduction3.png",
+                        constraints: constraints,
                       ),
                     ],
-                  )),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 65.0),
-                child: SmoothPageIndicator(
+                  ),
+                ),
+                const SizedBox(height: 20),
+                SmoothPageIndicator(
                   controller: pageController,
                   count: 3,
                   effect: const SlideEffect(
-                      activeDotColor: Colors.black,
-                      dotColor: Colors.black45,
-                      dotHeight: 12,
-                      dotWidth: 12),
+                    activeDotColor: Colors.black,
+                    dotColor: Colors.black45,
+                    dotHeight: 12,
+                    dotWidth: 12,
+                  ),
                 ),
-              ),
-              CustomElevatedButton(
-                text: "Continue",
-                onPressed: () {
-                  context.read<OnboardingCubit>().navigateToLogin(context);
-                },
-                width: double.infinity,
-                textColor: Colors.white,
-                verticalPadding: 18.0,
-                fontSize: 18.0,
-              ),
-            ],
-          ),
+                const SizedBox(height: 30),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.read<OnboardingCubit>().navigateToLogin(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(double.infinity, 50),
+                    ),
+                    child: const Text("Continue"),
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            );
+          },
         ),
+      ),
+    );
+  }
+
+  /// ✅ Function to build each onboarding page dynamically
+  Widget buildOnboardingPage({
+    required String subtitle,
+    required String imagePath,
+    required BoxConstraints constraints,
+  }) {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: constraints.maxHeight * 0.45,
+            child: Image.asset(imagePath, fit: BoxFit.contain),
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
+          ),
+        ],
       ),
     );
   }

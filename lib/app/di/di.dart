@@ -7,12 +7,15 @@ import 'package:hotel_booking/features/auth/data/data_source/local_datasource/us
 import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/user_remote_data_source.dart';
 import 'package:hotel_booking/features/auth/data/repository/user_local_repository.dart';
 import 'package:hotel_booking/features/auth/data/repository/user_remote_repository.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_user_profile.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/login_user_usecase.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/register_user_usecase.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/upload_image_usercase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_current_user_usecase.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
 
+import 'package:hotel_booking/features/bottom_navigation/presentation/view_model/profile/profile_cubit.dart';
 import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
 import 'package:hotel_booking/features/onboarding/presentation/view_model/onboarding_cubit.dart';
 import 'package:hotel_booking/features/splash/presentation/view_model/splash_cubit.dart';
@@ -28,6 +31,7 @@ Future<void> initDependencies() async {
   await _initHomeDependencies();
   await _initRegisterDependencies();
   await _initLoginDependencies();
+  await _initProfileDependencies(); // ✅ Add Profile Dependencies
 
   await _initOnBoardingScreenDependencies();
   await _initSplashScreenDependencies();
@@ -43,30 +47,23 @@ _initHiveDependencies() async {
 }
 
 _initApiService() {
-  // Remote Data Source
   getIt.registerLazySingleton<Dio>(
     () => ApiService(Dio()).dio,
   );
 }
 
 _initRegisterDependencies() async {
-  // Local Data Source
   getIt
       .registerFactory<UserLocalDatasource>(() => UserLocalDatasource(getIt()));
-
-  // Remote Data Source
   getIt.registerFactory<UserRemoteDataSource>(
       () => UserRemoteDataSource(getIt<Dio>()));
 
-  // Local Repository
   getIt.registerLazySingleton<UserLocalRepository>(() =>
       UserLocalRepository(userLocalDataSource: getIt<UserLocalDatasource>()));
 
-  // Remote Repository
   getIt.registerLazySingleton<UserRemoteRepository>(
       () => UserRemoteRepository(getIt<UserRemoteDataSource>()));
 
-  // Usecases
   getIt.registerLazySingleton<RegisterUsecase>(
     () => RegisterUsecase(repository: getIt<UserRemoteRepository>()),
   );
@@ -98,7 +95,7 @@ _initHomeDependencies() async {
 }
 
 _initLoginDependencies() async {
-  // =========================== Token Shared Preferences ===========================
+  // Registering TokenSharedPrefs once
   getIt.registerLazySingleton<TokenSharedPrefs>(
     () => TokenSharedPrefs(getIt<SharedPreferences>()),
   );
@@ -106,7 +103,7 @@ _initLoginDependencies() async {
   getIt.registerLazySingleton<LoginUserUsecase>(
     () => LoginUserUsecase(
       getIt<UserRemoteRepository>(),
-      getIt<TokenSharedPrefs>(),
+      getIt<TokenSharedPrefs>(), // TokenSharedPrefs is already registered
     ),
   );
 
@@ -118,6 +115,19 @@ _initLoginDependencies() async {
     ),
   );
 }
+
+_initProfileDependencies() async {
+  // Registering GetUserProfileUseCase for fetching the user profile
+  getIt.registerLazySingleton<GetUserProfileUseCase>(
+    () => GetUserProfileUseCase(getIt<UserRemoteRepository>()),
+  );
+
+  // Register ProfileCubit with the GetUserProfileUseCase dependency
+  getIt.registerFactory<ProfileCubit>(
+    () => ProfileCubit(getIt<GetUserProfileUseCase>()),
+  );
+}
+
 
 _initSplashScreenDependencies() async {
   getIt.registerFactory(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart'; // Import the carousel_slider package
 
 class HomeScreenView extends StatelessWidget {
   @override
@@ -37,13 +38,11 @@ class HomeScreenView extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: LayoutBuilder(
           builder: (context, constraints) {
-            // Check if the screen is larger (tablet or desktop)
-            bool isTablet = constraints.maxWidth > 600;
+            bool isTablet = constraints.maxWidth > 600; // Check for tablet
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Date, Guests, and Search Bar
                 Row(
                   children: [
                     Expanded(
@@ -65,28 +64,24 @@ class HomeScreenView extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 16),
-                // Search Bar
                 TextField(
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     hintText: "Search Hotel By Name",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                          color: Color(0xFF007EF2)), // Use hex color for border
+                      borderSide: BorderSide(color: Color(0xFF007EF2)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                          color: Color(0xFF007EF2),
-                          width: 2), // Focused border with blue color
+                      borderSide:
+                          BorderSide(color: Color(0xFF007EF2), width: 2),
                     ),
                     filled: false,
                     fillColor: Colors.white,
                   ),
                 ),
                 SizedBox(height: 16),
-                // Recommended Hotels Section
                 Text(
                   "Recommended Hotels",
                   style: TextStyle(
@@ -95,7 +90,6 @@ class HomeScreenView extends StatelessWidget {
                       color: Colors.blue),
                 ),
                 SizedBox(height: 8),
-                // Use Expanded to prevent overflow in ListView
                 SizedBox(
                   height: 200,
                   child: ListView(
@@ -105,24 +99,50 @@ class HomeScreenView extends StatelessWidget {
                         imagePath: 'assets/images/hotel1.jpg',
                         name: 'AYANA Resort',
                         location: 'Pokhara',
+                        description:
+                            'AYANA Resort offers luxurious stays with lake views and premium services.',
+                        roomStatus: 'Available',
+                        roomImages: [
+                          'assets/images/room1.jpeg',
+                          'assets/images/room2.jpeg',
+                          'assets/images/ro1.webp'
+                        ], // Room images for carousel
+                        pricePerNight: '\$150',
                       ),
                       SizedBox(width: 10),
                       HotelCard(
                         imagePath: 'assets/images/hotel2.png',
                         name: 'COMO Uma Resort',
                         location: 'Pokhara',
+                        description:
+                            'COMO Uma Resort provides a perfect blend of modern comfort and nature.',
+                        roomStatus: 'Not Available',
+                        roomImages: [
+                          'assets/images/room1.jpeg',
+                          'assets/images/room2.jpeg',
+                           'assets/images/ro1.webp'
+                        ], // Room images for carousel
+                        pricePerNight: '\$120',
                       ),
                       SizedBox(width: 10),
                       HotelCard(
                         imagePath: 'assets/images/hotel3.png',
                         name: 'Ritz-Carlton',
                         location: 'Pokhara',
+                        description:
+                            'Ritz-Carlton is known for its premium hospitality and scenic surroundings.',
+                        roomStatus: 'Available',
+                        roomImages: [
+                          'assets/images/room1.jpeg',
+                          'assets/images/room2.jpeg',
+                           'assets/images/ro1.webp'
+                        ], // Room images for carousel
+                        pricePerNight: '\$250',
                       ),
                     ],
                   ),
                 ),
                 SizedBox(height: 13),
-                // Business Accommodations Section (Explore More)
                 Text(
                   "Explore More",
                   style: TextStyle(
@@ -131,7 +151,6 @@ class HomeScreenView extends StatelessWidget {
                       color: Colors.blue),
                 ),
                 SizedBox(height: 8),
-                // Use Expanded to prevent overflow in ListView
                 SizedBox(
                   height: 200,
                   child: ListView(
@@ -141,18 +160,45 @@ class HomeScreenView extends StatelessWidget {
                         imagePath: 'assets/images/hotel4.jpeg',
                         name: 'Intercontinental',
                         location: 'Pokhara',
+                        description:
+                            'Intercontinental hotel provides an elegant stay with world-class facilities.',
+                        roomStatus: 'Available',
+                        roomImages: [
+                          'assets/images/room1.jpeg',
+                          'assets/images/room2.jpeg',
+                           'assets/images/ro1.webp'
+                        ], // Room images for carousel
+                        pricePerNight: '\$180',
                       ),
                       SizedBox(width: 10),
                       HotelCard(
                         imagePath: 'assets/images/hotel1.jpg',
                         name: 'Hilton Garden Inn',
                         location: 'Pokhara',
+                        description:
+                            'Hilton Garden Inn is a comfortable and stylish choice for business and leisure.',
+                        roomStatus: 'Available',
+                        roomImages: [
+                          'assets/images/room1.jpeg',
+                          'assets/images/room2.jpeg',
+                           'assets/images/ro1.webp'
+                        ], // Room images for carousel
+                        pricePerNight: '\$160',
                       ),
                       SizedBox(width: 10),
                       HotelCard(
                         imagePath: 'assets/images/hotel3.png',
                         name: 'Sheraton',
                         location: 'Pokhara',
+                        description:
+                            'Sheraton hotel offers an exquisite experience with top-notch hospitality.',
+                        roomStatus: 'Not Available',
+                        roomImages: [
+                          'assets/images/room1.jpeg',
+                          'assets/images/room2.jpeg',
+                          'assets/images/ro1.webp'
+                        ], // Room images for carousel
+                        pricePerNight: '\$200',
                       ),
                     ],
                   ),
@@ -170,42 +216,196 @@ class HotelCard extends StatelessWidget {
   final String imagePath;
   final String name;
   final String location;
+  final String description;
+  final String roomStatus;
+  final List<String> roomImages; // List of room images
+  final String pricePerNight;
 
   const HotelCard({
     required this.imagePath,
     required this.name,
     required this.location,
+    required this.description,
+    required this.roomStatus,
+    required this.roomImages, // Accept List of room images
+    required this.pricePerNight,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              imagePath,
-              height: 120,
-              width: 160,
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        // Navigate to the Hotel Detail Screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HotelDetailScreen(
+              imagePath: imagePath,
+              name: name,
+              location: location,
+              description: description,
+              roomStatus: roomStatus,
+              roomImages: roomImages, // Pass room images to HotelDetailScreen
+              pricePerNight: pricePerNight,
             ),
           ),
-          SizedBox(height: 8),
-          Text(
-            name,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 4),
-          Text(
-            location,
-            style: TextStyle(color: Colors.grey),
-          ),
-          SizedBox(height: 4),
-        ],
+        );
+      },
+      child: Container(
+        width: 160,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                imagePath,
+                height: 120,
+                width: 160,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              name,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 4),
+            Text(
+              location,
+              style: TextStyle(color: Colors.grey),
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+class HotelDetailScreen extends StatelessWidget {
+  final String imagePath;
+  final String name;
+  final String location;
+  final String description;
+  final String roomStatus;
+  final List<String> roomImages; // List of room images for carousel
+  final String pricePerNight;
+
+  const HotelDetailScreen({
+    required this.imagePath,
+    required this.name,
+    required this.location,
+    required this.description,
+    required this.roomStatus,
+    required this.roomImages, // Accept List of room images
+    required this.pricePerNight,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(name),
+        backgroundColor: Colors.blue,
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          bool isTablet = constraints.maxWidth > 600; // Check for tablet
+
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      imagePath,
+                      width: double.infinity,
+                      height: isTablet ? 300 : 200,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    name,
+                    style: TextStyle(
+                        fontSize: isTablet ? 24 : 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    location,
+                    style: TextStyle(
+                        fontSize: isTablet ? 20 : 16, color: Colors.grey),
+                  ),
+                  SizedBox(height: 12),
+                  Text(
+                    description,
+                    style: TextStyle(fontSize: isTablet ? 18 : 16),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    "Room Status: $roomStatus",
+                    style: TextStyle(fontSize: isTablet ? 18 : 16),
+                  ),
+                  SizedBox(height: 16),
+
+                  // Room Images Carousel
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      height: 200,
+                      enlargeCenterPage: true,
+                      autoPlay: true,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: 0.8,
+                    ),
+                    items: roomImages.map((image) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              image,
+                              width: double.infinity,
+                              height: 200,
+                              fit: BoxFit.cover,
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ),
+
+                  SizedBox(height: 8),
+                  Text(
+                    "Price per Night: $pricePerNight",
+                    style: TextStyle(fontSize: isTablet ? 18 : 16),
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    child: Text("Book Now"),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: HomeScreenView(),
+  ));
 }
