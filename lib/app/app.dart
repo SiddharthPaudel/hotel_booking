@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/app/di/di.dart';
 import 'package:hotel_booking/core/theme/app_theme.dart';
+import 'package:hotel_booking/features/admin_dashboard/view_model/customer_cubit.dart';
 
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
@@ -29,6 +30,7 @@ class App extends StatelessWidget {
         BlocProvider<LoginBloc>(
           create: (_) => getIt<LoginBloc>(),
         ),
+         BlocProvider(create: (_) => getIt<CustomerCubit>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

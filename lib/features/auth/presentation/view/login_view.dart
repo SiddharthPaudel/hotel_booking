@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/app/widget/custom_elevated_button.dart';
 import 'package:hotel_booking/core/common/widgets/custom_text_field.dart';
+import 'package:hotel_booking/features/admin_dashboard/view/admin_view.dart';
 import 'package:hotel_booking/features/auth/presentation/view/register_view.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 
@@ -22,60 +23,48 @@ class LoginView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Form(
-              key: _loginFormKey,  // Wrap the form with the form key
+              key: _loginFormKey, 
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Logo with elephants and design
-                  // Image.asset(
-                  //   'assets/images/logo.png', // Add your logo image path here
-                  //   height: 200,
-                  // ),
                   const SizedBox(height: 24),
 
-                  // Welcome text
+                  // Welcome Text
                   const Text(
                     "Welcome back",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   const Text(
                     "Sign in to access your account",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
+                    style: TextStyle(fontSize: 16, color: Colors.grey),
                   ),
                   const SizedBox(height: 32),
 
-                  // Email TextField
+                  // Email Input
                   CustomTextField(
                     controller: _emailController,
-                    validator: ValidateLogin.emailValidate, // Add validator here
+                    validator: ValidateLogin.emailValidate,
                     keyboardType: TextInputType.emailAddress,
                     hintText: 'Enter your email',
                   ),
                   const SizedBox(height: 16),
 
-                  // Password TextField
+                  // Password Input
                   CustomTextField(
                     controller: _passwordController,
-                    validator: ValidateLogin.passwordValidate, // Add validator here
+                    validator: ValidateLogin.passwordValidate,
                     keyboardType: TextInputType.visiblePassword,
                     hintText: 'Password',
                   ),
                   const SizedBox(height: 8),
 
-                  // Forgot password button
+                  // Forgot Password
                   Align(
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
-                        Navigator.of(context)
-                            .pushNamed("/forget-password");
+                        Navigator.of(context).pushNamed("/forget-password");
                       },
                       child: const Text(
                         "Forgot password?",
@@ -85,21 +74,35 @@ class LoginView extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
 
-                  // Login button
+                  // Login Button
                   SizedBox(
                     width: double.infinity,
                     child: CustomElevatedButton(
                       text: "Login",
                       onPressed: () async {
                         if (_loginFormKey.currentState!.validate()) {
-                          // Proceed with login if the form is valid
-                          context.read<LoginBloc>().add(
-                            LoginUserEvent(
-                              context: context,
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            ),
-                          );
+                          String email = _emailController.text.trim();
+                          String password = _passwordController.text.trim();
+
+                          // Check for admin credentials
+                          if (email == "admin@gmail.com" && password == "admin@123") {
+                            // Navigate to Admin Dashboard
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AdminDashboard(),
+                              ),
+                            );
+                          } else {
+                            // Proceed with normal login
+                            context.read<LoginBloc>().add(
+                              LoginUserEvent(
+                                context: context,
+                                email: email,
+                                password: password,
+                              ),
+                            );
+                          }
                         }
                       },
                       width: double.infinity,
@@ -110,7 +113,7 @@ class LoginView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  // Register now
+                  // Register Option
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
