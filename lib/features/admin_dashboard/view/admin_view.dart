@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:hotel_booking/features/admin_dashboard/view/hotel_view.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AdminDashboard extends StatefulWidget {
   @override
@@ -47,13 +49,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget _getView(int index) {
     switch (index) {
       case 0:
-        return const DashboardContent(); // Show Dashboard by default
+        return const DashboardContent();
       case 1:
-        return CustomerView();
+        return const CustomerView();
       case 2:
         return BookingsView();
       case 3:
         return HotelsView();
+      case 4:
+        return HotelDetailsForm(); // Show hotel form when clicked
       default:
         return const DashboardContent();
     }
@@ -61,13 +65,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
 }
 
 // Modern Responsive Sidebar
+
 class ResponsiveSidebar extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onItemTapped;
 
-  const ResponsiveSidebar(
-      {required this.selectedIndex, required this.onItemTapped, Key? key})
-      : super(key: key);
+  const ResponsiveSidebar({
+    required this.selectedIndex,
+    required this.onItemTapped,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +92,7 @@ class ResponsiveSidebar extends StatelessWidget {
           const SizedBox(height: 20),
           const Icon(Icons.admin_panel_settings, size: 50, color: Colors.white),
           const SizedBox(height: 20),
-          ...["Dashboard", "Customers", "Bookings", "Hotels"]
+          ...["Dashboard", "Customers", "Bookings", "Hotels", "Hotel Details"]
               .asMap()
               .entries
               .map((entry) {
@@ -99,7 +106,9 @@ class ResponsiveSidebar extends StatelessWidget {
                         ? Icons.person
                         : idx == 2
                             ? Icons.book
-                            : Icons.hotel,
+                            : idx == 3
+                                ? Icons.hotel
+                                : Icons.add_a_photo, // For hotel details
                 color: selectedIndex == idx ? Colors.blue : Colors.white,
               ),
               title: Text(label, style: const TextStyle(color: Colors.white)),
@@ -116,6 +125,7 @@ class ResponsiveSidebar extends StatelessWidget {
   }
 }
 
+// Drawer for Mobile View
 // Drawer for Mobile View
 class ResponsiveDrawer extends StatelessWidget {
   final Function(int) onItemTapped;
@@ -135,7 +145,13 @@ class ResponsiveDrawer extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20)),
             ),
           ),
-          ...["Dashboard", "Customers", "Bookings", "Hotels"]
+          ...[
+            "Dashboard",
+            "Customers",
+            "Bookings",
+            "Hotels",
+            "Hotel Details"
+          ] // Added "Hotel Details"
               .asMap()
               .entries
               .map((entry) {
@@ -149,7 +165,9 @@ class ResponsiveDrawer extends StatelessWidget {
                         ? Icons.person
                         : idx == 2
                             ? Icons.book
-                            : Icons.hotel,
+                            : idx == 3
+                                ? Icons.hotel
+                                : Icons.add_a_photo, // For "Hotel Details"
                 color: Colors.blueGrey,
               ),
               title: Text(label),
@@ -384,10 +402,18 @@ class BookingsView extends StatelessWidget {
                       isTablet ? 32.0 : 16.0, // Adjust column spacing
                   border: TableBorder.all(color: Colors.grey[300]!),
                   columns: const [
-                    DataColumn(label: Text('Email', style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('Hotel Name', style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('Check-In', style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('Check-Out', style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Email',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Hotel Name',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Check-In',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Check-Out',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: bookings.map((booking) {
                     return DataRow(
@@ -454,10 +480,18 @@ class HotelsView extends StatelessWidget {
                       isTablet ? 32.0 : 16.0, // Adjust column spacing
                   border: TableBorder.all(color: Colors.grey[300]!),
                   columns: const [
-                    DataColumn(label: Text('Hotel Name', style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('Description', style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('Price', style: TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Hotel Name',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Description',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Price',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(
+                        label: Text('Status',
+                            style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: hotels.map((hotel) {
                     return DataRow(
@@ -474,6 +508,156 @@ class HotelsView extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class HotelDetailsForm extends StatefulWidget {
+  const HotelDetailsForm({Key? key}) : super(key: key);
+
+  @override
+  _HotelDetailsFormState createState() => _HotelDetailsFormState();
+}
+
+class _HotelDetailsFormState extends State<HotelDetailsForm> {
+  final _formKey = GlobalKey<FormState>();
+  File? _image;
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  String _availability = 'Available';
+
+  // Function to pick image from gallery
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Add Hotel Details",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+
+            // Image Picker
+            GestureDetector(
+              onTap: _pickImage,
+              child: Container(
+                color: Colors.grey[200],
+                width: 150,
+                height: 150,
+                child: _image == null
+                    ? const Icon(Icons.camera_alt, size: 40, color: Colors.grey)
+                    : Image.file(_image!, fit: BoxFit.cover),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Description
+            TextFormField(
+              controller: _descriptionController,
+              decoration: const InputDecoration(
+                labelText: "Hotel Description",
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter hotel description';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+
+            // Price
+            TextFormField(
+              controller: _priceController,
+              decoration: const InputDecoration(
+                labelText: "Price per Night",
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter price';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+
+            // Location
+            TextFormField(
+              controller: _locationController,
+              decoration: const InputDecoration(
+                labelText: "Location",
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter location';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+
+            // Availability Dropdown
+            DropdownButtonFormField<String>(
+              value: _availability,
+              onChanged: (value) {
+                setState(() {
+                  _availability = value!;
+                });
+              },
+              items: ['Available', 'Not Available']
+                  .map((e) => DropdownMenuItem<String>(
+                        value: e,
+                        child: Text(e),
+                      ))
+                  .toList(),
+              decoration: const InputDecoration(
+                labelText: "Availability",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Submit Button
+            ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // Form is valid, submit hotel details
+                  // Here, you can process the data or send it to your backend
+                  print('Hotel Added!');
+                  print('Description: ${_descriptionController.text}');
+                  print('Price: ${_priceController.text}');
+                  print('Location: ${_locationController.text}');
+                  print('Availability: $_availability');
+                  // You can save image as well
+                  if (_image != null) {
+                    print('Image Path: ${_image!.path}');
+                  }
+                }
+              },
+              child: const Text('Add Hotel'),
+            ),
+          ],
+        ),
       ),
     );
   }
