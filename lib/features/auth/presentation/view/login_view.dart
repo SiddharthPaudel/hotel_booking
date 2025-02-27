@@ -6,7 +6,6 @@ import 'package:hotel_booking/features/admin_dashboard/view/admin_view.dart';
 import 'package:hotel_booking/features/auth/presentation/view/register_view.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 
-
 class LoginView extends StatelessWidget {
   LoginView({super.key});
 
@@ -23,16 +22,34 @@ class LoginView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Form(
-              key: _loginFormKey, 
+              key: _loginFormKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 24),
 
-                  // Welcome Text
-                  const Text(
-                    "Welcome back",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  // Welcome Text with RichText
+                  RichText(
+                    text: TextSpan(
+                      text: 'Welcome',
+                      style: const TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontFamily: 'Nunito',
+                      ),
+                      children: [
+                        TextSpan(
+                          text: ' back',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            fontFamily: 'Nunito',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -56,6 +73,7 @@ class LoginView extends StatelessWidget {
                     validator: ValidateLogin.passwordValidate,
                     keyboardType: TextInputType.visiblePassword,
                     hintText: 'Password',
+                    isPassword: true,
                   ),
                   const SizedBox(height: 8),
 

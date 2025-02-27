@@ -7,6 +7,8 @@ import 'package:hotel_booking/features/auth/presentation/view_model/signup/regis
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_state.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:hotel_booking/app/widget/custom_elevated_button.dart';
+import 'package:hotel_booking/core/common/widgets/custom_text_field.dart'; // Your custom text field widget
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -18,9 +20,9 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   final _gap = const SizedBox(height: 16);
   final _key = GlobalKey<FormState>();
-  final _emailController = TextEditingController(text: 'Sid@gmail.com');
-  final _usernameController = TextEditingController(text: 'Sid');
-  final _passwordController = TextEditingController(text: 'test12345');
+  final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   // Checking for Runtime Camera Permissions
   checkCameraPermission() async {
@@ -211,67 +213,50 @@ class _RegisterViewState extends State<RegisterView> {
                       ),
                     ),
                     const SizedBox(height: 25),
-                    TextFormField(
+                    CustomTextField(
                       controller: _emailController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.email,
-                          size: 24,
-                        ),
-                        labelText: 'Email',
-                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter email';
                         }
                         return null;
                       },
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'Email',
+                      icon: Icons.email, // Email icon
                     ),
                     _gap,
-                    TextFormField(
+                    CustomTextField(
                       controller: _usernameController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.person,
-                          size: 24,
-                        ),
-                        labelText: 'Username',
-                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter username';
                         }
                         return null;
                       },
+                      keyboardType: TextInputType.text,
+                      hintText: 'Username',
+                      icon: Icons.person, // Username icon
                     ),
                     _gap,
-                    TextFormField(
+                    CustomTextField(
                       controller: _passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          size: 24,
-                          color: Colors.black,
-                        ),
-                        suffixIcon: Icon(
-                          Icons.visibility,
-                          color: Colors.black,
-                          size: 24, // Size for the visibility icon
-                        ),
-                        labelText: 'Password',
-                      ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter password';
                         }
                         return null;
                       },
+                      keyboardType: TextInputType.visiblePassword,
+                      hintText: 'Password',
+                      icon: Icons.lock, // Lock icon for password
+                      isPassword: true, // Password should be hidden
                     ),
                     _gap,
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
+                      child: CustomElevatedButton(
+                        text: 'Register',
                         onPressed: () {
                           if (_key.currentState!.validate()) {
                             final registerState =
@@ -286,12 +271,10 @@ class _RegisterViewState extends State<RegisterView> {
                                 ));
                           }
                         },
-                        style: ElevatedButton.styleFrom(
-                          textStyle: const TextStyle(
-                            fontFamily: 'Nunito', // Font for the button text
-                          ),
-                        ),
-                        child: const Text('Register'),
+                        width: double.infinity,
+                        textColor: Colors.white,
+                        verticalPadding: 18.0,
+                        fontSize: 18.0,
                       ),
                     ),
                     _gap,

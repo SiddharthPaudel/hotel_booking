@@ -67,21 +67,66 @@ class HotelCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(16),
-        leading: Icon(Icons.hotel, size: 50, color: Colors.blue),
-        title: Text(
-          'Grand Hotel',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // Hotel Name and Location
+            Row(
+              children: [
+                Icon(Icons.hotel, size: 50, color: Colors.blue),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Grand Hotel',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Location: Downtown, City Center',
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Divider(thickness: 1, color: Colors.grey[300], height: 24),
+            // Room Info (Number of rooms)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Number of Rooms: 2',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  '\$300',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+              ],
+            ),
+            SizedBox(height: 12),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text(
+            //       'Check-in: 1st March 2025',
+            //       style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+            //     ),
+            //     Text(
+            //       'Check-out: 5th March 2025',
+            //       style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+            //     ),
+            //   ],
+            // ),
+          ],
         ),
-        subtitle: Text(
-          'Location: Downtown, City Center',
-          style: TextStyle(color: Colors.grey[600]),
-        ),
-        trailing: Icon(Icons.info, color: Colors.blue),
-        onTap: () {
-          // Navigate to hotel details page if needed
-        },
       ),
     );
   }
@@ -90,34 +135,55 @@ class HotelCard extends StatelessWidget {
 class BookingSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(16),
-        title: Text(
-          'Room Type: Deluxe Room',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Check-in: 1st March 2025'),
-            Text('Check-out: 5th March 2025'),
-            Text('Guests: 2 Adults, 1 Child'),
-            SizedBox(height: 8),
-            Text(
-              'Price: \$300',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Adjust layout based on screen width
+        bool isTablet = constraints.maxWidth > 600;
+
+        return Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Check-in/Check-out Dates
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        'Check-in: 1st March 2025',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    SizedBox(width: isTablet ? 24 : 12),
+                    Flexible(
+                      child: Text(
+                        'Check-out: 5th March 2025',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 12),
+
+                // Price
+                Text(
+                  'Total Price: \$300',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

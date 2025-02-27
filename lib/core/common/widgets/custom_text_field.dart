@@ -5,13 +5,18 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?) validator;
   final TextInputType keyboardType;
   final String hintText;
+  final IconData? icon; // Added icon property
+  final bool isPassword; // Added isPassword property to control visibility
 
-  const CustomTextField(
-      {super.key,
-      required this.controller,
-      required this.validator,
-      required this.keyboardType,
-      required this.hintText});
+  const CustomTextField({
+    super.key,
+    required this.controller,
+    required this.validator,
+    required this.keyboardType,
+    required this.hintText,
+    this.icon, // Optional icon parameter
+    this.isPassword = false, // Default to false if not a password field
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +24,10 @@ class CustomTextField extends StatelessWidget {
       controller: controller,
       validator: validator,
       keyboardType: keyboardType,
+      obscureText: isPassword, // If it's a password, it will be obscured
       style: const TextStyle(fontSize: 19.0, color: Colors.black),
       decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
+        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
         filled: true,
         fillColor: const Color.fromARGB(255, 244, 246, 247),
         enabledBorder: OutlineInputBorder(
@@ -36,6 +41,9 @@ class CustomTextField extends StatelessWidget {
         border: InputBorder.none,
         hintText: hintText,
         hintStyle: const TextStyle(fontSize: 18.0, color: Colors.black45),
+        prefixIcon: icon != null
+            ? Icon(icon, color: Colors.black) // Show icon if available
+            : null,
       ),
     );
   }

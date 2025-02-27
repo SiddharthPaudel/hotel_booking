@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart'; // Import the carousel_slider package
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:intl/intl.dart'; // Import the carousel_slider package
 
 class HomeScreenView extends StatelessWidget {
   @override
@@ -120,7 +121,7 @@ class HomeScreenView extends StatelessWidget {
                         roomImages: [
                           'assets/images/room1.jpeg',
                           'assets/images/room2.jpeg',
-                           'assets/images/ro1.webp'
+                          'assets/images/ro1.webp'
                         ], // Room images for carousel
                         pricePerNight: '\$120',
                       ),
@@ -135,7 +136,7 @@ class HomeScreenView extends StatelessWidget {
                         roomImages: [
                           'assets/images/room1.jpeg',
                           'assets/images/room2.jpeg',
-                           'assets/images/ro1.webp'
+                          'assets/images/ro1.webp'
                         ], // Room images for carousel
                         pricePerNight: '\$250',
                       ),
@@ -166,7 +167,7 @@ class HomeScreenView extends StatelessWidget {
                         roomImages: [
                           'assets/images/room1.jpeg',
                           'assets/images/room2.jpeg',
-                           'assets/images/ro1.webp'
+                          'assets/images/ro1.webp'
                         ], // Room images for carousel
                         pricePerNight: '\$180',
                       ),
@@ -181,7 +182,7 @@ class HomeScreenView extends StatelessWidget {
                         roomImages: [
                           'assets/images/room1.jpeg',
                           'assets/images/room2.jpeg',
-                           'assets/images/ro1.webp'
+                          'assets/images/ro1.webp'
                         ], // Room images for carousel
                         pricePerNight: '\$160',
                       ),
@@ -385,20 +386,282 @@ class HotelDetailScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BookingScreen(
+                            hotelName: name,
+                            pricePerNight: pricePerNight,
+                          ),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
                       minimumSize: Size(double.infinity, 50),
                     ),
                     child: Text("Book Now"),
-                  ),
+                  )
                 ],
               ),
             ),
           );
         },
       ),
+    );
+  }
+}
+
+class BookingScreen extends StatefulWidget {
+  final String hotelName;
+  final String pricePerNight;
+
+  const BookingScreen({
+    required this.hotelName,
+    required this.pricePerNight,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _BookingScreenState createState() => _BookingScreenState();
+}
+
+class _BookingScreenState extends State<BookingScreen> {
+  DateTime? checkInDate;
+  DateTime? checkOutDate;
+  int selectedRooms = 1;
+
+  Future<void> _selectDate(BuildContext context, bool isCheckIn) async {
+    DateTime today = DateTime.now();
+    DateTime firstDate = isCheckIn ? today : (checkInDate ?? today);
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: firstDate,
+      firstDate: firstDate,
+      lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Colors.blueAccent,
+            colorScheme: ColorScheme.light(primary: Colors.blueAccent),
+            buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        if (isCheckIn) {
+          checkInDate = pickedDate;
+          checkOutDate = null;
+        } else {
+          checkOutDate = pickedDate;
+        }
+      });
+    }
+  }
+
+  double calculateTotalPrice() {
+    if (checkInDate == null || checkOutDate == null) return 0;
+    int nights = checkOutDate!.difference(checkInDate!).inDays;
+    double price = double.parse(widget.pricePerNight.substring(1));
+    return nights * price * selectedRooms;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[200], // Light grey background
+      appBar: AppBar(
+        title: Text("Book ${widget.hotelName}"),
+        backgroundColor: Colors.blueAccent,
+        elevation: 0,
+      ),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Card(
+            elevation: 4,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Hotel Name
+                  Text(
+                    widget.hotelName,
+                    style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87),
+                  ),
+                  SizedBox(height: 10),
+
+                  // Price per night
+                  Text(
+                    "Price per Night: ${widget.pricePerNight}",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 20),
+
+                  // Check-in Date Selection
+                  _buildDateSelector("Check-in Date", checkInDate,
+                      () => _selectDate(context, true)),
+                  SizedBox(height: 16),
+
+                  // Check-out Date Selection
+                  _buildDateSelector(
+                      "Check-out Date",
+                      checkOutDate,
+                      checkInDate == null
+                          ? null
+                          : () => _selectDate(context, false)),
+                  SizedBox(height: 20),
+
+                  // Room Selection
+                  Text("Select Number of Rooms",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                  SizedBox(height: 8),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    child: DropdownButton<int>(
+                      value: selectedRooms,
+                      isExpanded: true,
+                      underline: SizedBox(),
+                      items: List.generate(5, (index) => index + 1)
+                          .map((room) => DropdownMenuItem(
+                                value: room,
+                                child: Text("$room Room${room > 1 ? 's' : ''}",
+                                    style: TextStyle(fontSize: 16)),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          selectedRooms = value!;
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20),
+
+                  // Total Price Display
+                  if (checkInDate != null && checkOutDate != null)
+                    Container(
+                      padding: EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.green),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Total Price: \$${calculateTotalPrice().toStringAsFixed(2)}",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green),
+                        ),
+                      ),
+                    ),
+
+                  SizedBox(height: 20),
+
+                  // Confirm Booking Button
+                  ElevatedButton(
+                    onPressed: (checkInDate != null && checkOutDate != null)
+                        ? () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Row(
+                                  children: [
+                                    Icon(Icons.check_circle,
+                                        color: Colors.white),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      "Booking Confirmed!",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                                backgroundColor:
+                                    Colors.green, // ✅ Green success color
+                                behavior: SnackBarBehavior.floating,
+                                duration: Duration(
+                                    seconds:
+                                        2), // Message disappears after 2 seconds
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            );
+                          }
+                        : null,
+                    child:
+                        Text("Confirm Booking", style: TextStyle(fontSize: 18)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent,
+                      foregroundColor: Colors.white,
+                      minimumSize: Size(double.infinity, 50),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 3,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Widget to build Date Picker Buttons
+  Widget _buildDateSelector(
+      String title, DateTime? date, VoidCallback? onPressed) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+        SizedBox(height: 8),
+        ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor:
+                date != null ? Colors.blueAccent : Colors.grey.shade300,
+            foregroundColor: date != null ? Colors.white : Colors.black54,
+            minimumSize: Size(double.infinity, 50),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 2,
+          ),
+          child: Text(
+            date == null
+                ? "Select Date"
+                : DateFormat('dd/MM/yyyy').format(date),
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ],
     );
   }
 }

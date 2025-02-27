@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
 
 class ProfileView extends StatelessWidget {
   @override
@@ -10,51 +11,92 @@ class ProfileView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Profile'),
         backgroundColor: Colors.blueAccent,
+        elevation: 0,
+        centerTitle: true,
       ),
-      body: Center(  // Center the content in the body
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: screenWidth < 600 ? screenWidth : 600,  // Limit max width for larger screens (like tablets)
+              maxWidth: screenWidth < 600 ? screenWidth : 600,  // Limit max width for larger screens
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,  // Center vertically
-              crossAxisAlignment: CrossAxisAlignment.center,  // Center horizontally
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // Profile Picture Section
                 CircleAvatar(
-                  radius: screenWidth < 600 ? 50 : 80,  // Adjust size for tablet screen
+                  radius: screenWidth < 600 ? 70 : 100,  // Adjust size for tablet screen
                   backgroundImage: AssetImage('assets/images/pro.png'), // Replace with your image path
                 ),
                 SizedBox(height: 20),
-                Text(
-                  'John Doe',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  'johndoe@example.com',
-                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                
+                // User Info in a Card
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'John Doe',
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'johndoe@example.com',
+                          style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(height: 30),
+
+                // Edit Profile Button
                 ElevatedButton(
                   onPressed: () {
                     // Handle Edit Profile
                   },
-                  child: Text('Edit Profile'),
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                    backgroundColor: Colors.blueAccent,
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    elevation: 5,
+                    shadowColor: Colors.blueAccent.withOpacity(0.5),
+                  ),
+                  child: Text(
+                    'Edit Profile',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
+
+                // Logout Button
                 OutlinedButton(
                   onPressed: () {
-                    // Handle Logout
+                    // Navigate to Login Page
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginView()),
+                    );
                   },
-                  child: Text('Logout', style: TextStyle(color: Colors.redAccent)),
                   style: OutlinedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    side: BorderSide(color: Colors.redAccent),
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                    side: BorderSide(color: Colors.redAccent, width: 2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(fontSize: 16, color: Colors.redAccent),
                   ),
                 ),
               ],
