@@ -1,80 +1,87 @@
+// test/login_view_widget_test.dart
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/login/login_state.dart';
 
-import 'login.mock.dart'; // Ensure this file exists with MockLoginBloc
+/// Create a mock LoginBloc using mocktail and bloc_test.
+class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
+    implements LoginBloc {}
 
 void main() {
-  late MockLoginBloc mockLoginBloc;
+  late MockLoginBloc loginBloc;
 
   setUp(() {
-    mockLoginBloc = MockLoginBloc();
+    loginBloc = MockLoginBloc();
+    when(() => loginBloc.state).thenReturn(LoginState.initial());
   });
 
-  Widget createTestWidget() {
+  /// A helper to wrap the widget under test with necessary MaterialApp & BlocProvider.
+  Widget loadLoginScreen() {
     return BlocProvider<LoginBloc>.value(
-      value: mockLoginBloc,
+      value: loginBloc,
       child: MaterialApp(
         home: LoginView(),
       ),
     );
   }
 
- testWidgets('Should have a title in Login Screen', (WidgetTester tester) async {
-  await tester.pumpWidget(createTestWidget());
+  testWidgets('should display the Login button', (WidgetTester tester) async {
+    await tester.pumpWidget(loadLoginScreen());
+    await tester.pumpAndSettle();
 
-  // Print all text widgets again (for debugging)
-  final textWidgets = find.byType(Text);
-  for (var widget in tester.widgetList(textWidgets)) {
-    debugPrint('Found text: ${(widget as Text).data}');
-  }
+    // Verify that the button with text "Login" is present.
+    final loginButton = find.widgetWithText(ElevatedButton, 'Login');
+    expect(loginButton, findsOneWidget);
+  });
 
-  // Update the expected title based on actual UI
-  Finder titleFinder = find.text('Login'); // Change this to match your UI
+  testWidgets('should allow entering email and password', (WidgetTester tester) async {
+    await tester.pumpWidget(loadLoginScreen());
+    await tester.pumpAndSettle();
 
-  // Check if the title exists
-  expect(titleFinder, findsOneWidget);
-});
-
-
-
-  testWidgets('Should find email and password text fields',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(createTestWidget());
-
-    // Find the email text field by key
-    Finder emailField = find.byKey(const ValueKey('email'));
+    // Locate the TextFields using their hintText.
+    final emailField = find.byWidgetPredicate(
+      (widget) =>
+          widget is TextField &&
+          widget.decoration?.hintText == 'Enter your email',
+    );
+    final passwordField = find.byWidgetPredicate(
+      (widget) =>
+          widget is TextField && widget.decoration?.hintText == 'Password',
+    );
+    
     expect(emailField, findsOneWidget);
-
-    // Find the password text field by key
-    Finder passwordField = find.byKey(const ValueKey('password'));
     expect(passwordField, findsOneWidget);
+
+    // Enter text into the email and password fields.
+    await tester.enterText(emailField, 'test@example.com');
+    await tester.enterText(passwordField, 'password');
+
+    // Verify the text is entered.
+    expect(find.text('test@example.com'), findsOneWidget);
+    expect(find.text('password'), findsOneWidget);
   });
 
-  testWidgets('Should find login and register buttons',
-      (WidgetTester tester) async {
-    await tester.pumpWidget(createTestWidget());
-    await tester.pumpAndSettle(); // Ensure UI is fully rendered
+  testWidgets('should display "Forgot password?" text', (WidgetTester tester) async {
+    await tester.pumpWidget(loadLoginScreen());
+    await tester.pumpAndSettle();
 
-    // Debugging output to check widget tree
-    debugPrint('Widgets in tree:');
-    for (var widget in tester.allWidgets) {
-      debugPrint(widget.toString());
-    }
-
-    // Find the Login button
-    Finder loginButton = find.widgetWithText(ElevatedButton, 'Login');
-    expect(loginButton, findsOneWidget, reason: 'Login button is missing!');
-
-    // Find the Register button using text search
-    Finder registerButton = find.text("Don't have an account? Sign Up");
-    expect(registerButton, findsOneWidget,
-        reason: 'Register button is missing!');
+    final forgotPasswordText = find.text("Forgot password?");
+    expect(forgotPasswordText, findsOneWidget);
   });
 
+  testWidgets('should display "New Member? Register now" text button', (WidgetTester tester) async {
+    await tester.pumpWidget(loadLoginScreen());
+    await tester.pumpAndSettle();
 
-
-
+    // Check that the "New Member?" text exists.
+    expect(find.text("New Member? "), findsOneWidget);
+    // And the "Register now" TextButton is present.
+    final registerButton = find.widgetWithText(TextButton, "Register now");
+    expect(registerButton, findsOneWidget);
+  });
 }
