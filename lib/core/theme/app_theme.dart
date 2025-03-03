@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking/app/constants/theme_constant.dart';
+
 
 class AppTheme {
   AppTheme._();

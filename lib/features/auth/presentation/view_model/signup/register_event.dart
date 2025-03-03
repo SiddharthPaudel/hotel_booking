@@ -15,19 +15,28 @@ class LoadImage extends RegisterEvent {
   });
 }
 
-class RegisterUser extends RegisterEvent {
+class RegisterUserEvent extends RegisterEvent {
+  final BuildContext context;
+  final String fullName;
   final String email;
-  final String username;
   final String password;
-  final String? image;
+  final String? avatar;
 
-  const RegisterUser({
+  const RegisterUserEvent({
+    required this.context,
+    required this.fullName,
     required this.email,
-    required this.username,
     required this.password,
-    this.image,
+    this.avatar,
   });
+}
 
-  @override
-  List<Object> get props => [email, username, password];
+class NavigateLoginScreenEvent extends RegisterEvent {
+  final BuildContext context;
+  final Widget destination;
+
+  const NavigateLoginScreenEvent({
+    required this.context,
+    required this.destination,
+  });
 }

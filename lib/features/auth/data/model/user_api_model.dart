@@ -1,84 +1,104 @@
 import 'package:equatable/equatable.dart';
-import 'package:hotel_booking/features/auth/domain/entity/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/user_entity.dart';
 
 @JsonSerializable()
 class UserApiModel extends Equatable {
-  @JsonKey(name: '_id') // Binding for server variable name with studentId
+  @JsonKey(name: '_id')
   final String? userId;
-  final String username;
+  @JsonKey(name: 'name')
+  final String fullName;
   final String email;
-  final String? image;
   final String password;
+  final String phone;
+  final String address;
+  final String role;
+  final String? avatar;
 
   const UserApiModel({
     this.userId,
-    required this.username,
+    required this.fullName,
     required this.email,
-    this.image,
     required this.password,
+    required this.phone,
+    required this.address,
+    required this.role,
+    this.avatar,
   });
 
   const UserApiModel.empty()
       : userId = '',
+        fullName = '',
         email = '',
-        username = '',
         password = '',
-        image = '';
+        phone = '',
+        address = '',
+        role = '',
+        avatar = '';
 
   // From JSON
   factory UserApiModel.fromJson(Map<String, dynamic> json) {
     return UserApiModel(
-      userId: json['_id'] as String?,
-      email: json['email'] as String,
-      image: json['image'] as String?,
-      username: json['username'] as String,
-      password: json['password'] as String,
+      userId: json['_id'],
+      fullName: json['name'],
+      email: json['email'],
+      password: json['password'],
+      phone: json['phone'],
+      address: json['address'],
+      role: json['role'],
+      avatar: json['avatar'],
     );
   }
 
   // To JSON
   Map<String, dynamic> toJson() {
     return {
-      '_id': userId,
+      'username': fullName,
       'email': email,
-      'image': image,
-      'username': username,
       'password': password,
+      'phone': phone,
+      'address': address,
+      'role': role,
+      'avatar': avatar,
     };
   }
 
   // Convert API Object to Entity
   UserEntity toEntity() => UserEntity(
         userId: userId,
+        fullName: fullName,
         email: email,
-        image: image,
-        username: username,
         password: password,
+        phone: phone,
+        address: address,
+        role: role,
+        avatar: avatar,
       );
 
   // Convert Entity to API Object
-  factory UserApiModel.fromEntity(UserEntity entity) {
-    return UserApiModel(
-      userId: entity.userId,
-      email: entity.email,
-      image: entity.image,
-      username: entity.username,
-      password: entity.password,
-    );
-  }
+  static UserApiModel fromEntity(UserEntity entity) => UserApiModel(
+        fullName: entity.fullName,
+        email: entity.email,
+        password: entity.password,
+        phone: entity.phone,
+        address: entity.address,
+        role: entity.role,
+        avatar: entity.avatar,
+      );
 
   // Convert API List to Entity List
-  static List<UserEntity> toEntityList(List<UserApiModel> models) {
-    return models.map((model) => model.toEntity()).toList();
-  }
+  static List<UserEntity> toEntityList(List<UserApiModel> models) =>
+      models.map((model) => model.toEntity()).toList();
 
   @override
   List<Object?> get props => [
         userId,
+        fullName,
         email,
-        image,
-        username,
         password,
+        phone,
+        address,
+        role,
+        avatar,
       ];
 }

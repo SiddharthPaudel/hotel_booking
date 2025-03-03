@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel_booking/features/onboarding/presentation/view/onboarding_view.dart';
-import 'package:hotel_booking/features/onboarding/presentation/view_model/onboarding_cubit.dart';
+import 'package:sajilobihe_event_venue_booking_system/features/onBoarding/presentation/view/onboarding_screen_view.dart';
+import 'package:sajilobihe_event_venue_booking_system/features/onBoarding/presentation/view_model/onboarding_cubit.dart';
+
 
 
 class SplashCubit extends Cubit<void> {

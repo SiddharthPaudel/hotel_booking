@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel_booking/app/widget/custom_elevated_button.dart';
-import 'package:hotel_booking/core/common/widgets/custom_text_field.dart';
-import 'package:hotel_booking/features/admin_dashboard/view/admin_view.dart';
-import 'package:hotel_booking/features/auth/presentation/view/register_view.dart';
-import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
+import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_elevated_button.dart';
+import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_text_field.dart';
+
+import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view/register_view.dart';
+import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view_model/login/login_bloc.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});
@@ -102,25 +102,14 @@ class LoginView extends StatelessWidget {
                           String email = _emailController.text.trim();
                           String password = _passwordController.text.trim();
 
-                          // Check for admin credentials
-                          if (email == "admin@gmail.com" && password == "admin@123") {
-                            // Navigate to Admin Dashboard
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AdminDashboard(),
-                              ),
-                            );
-                          } else {
-                            // Proceed with normal login
-                            context.read<LoginBloc>().add(
-                              LoginUserEvent(
-                                context: context,
-                                email: email,
-                                password: password,
-                              ),
-                            );
-                          }
+                          // Proceed with normal login
+                          context.read<LoginBloc>().add(
+                            LoginUserEvent(
+                              context: context,
+                              email: email,
+                              password: password,
+                            ),
+                          );
                         }
                       },
                       width: double.infinity,
