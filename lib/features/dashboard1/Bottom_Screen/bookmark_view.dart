@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/hotel_remote_datasource.dart';
 import 'package:hotel_booking/features/auth/domain/repository/hotel_repository.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/get_all_hotels_usecase.dart';
-import 'package:hotel_booking/features/dashboard1/Bottom_Screen/view_model/venue_bloc.dart';
-import 'package:hotel_booking/features/dashboard1/Bottom_Screen/view_model/venue_event.dart';
-import 'package:hotel_booking/features/dashboard1/Bottom_Screen/view_model/venue_state.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/view_model/hotel_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/view_model/hotel_event.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/view_model/hotel_state.dart';
 
 
 import '../../auth/domain/entity/hotel_entity.dart';
-import 'venue_detail_page.dart';
+import 'hotel_detail_page.dart';
 
 class BookmarkView extends StatelessWidget {
   @override

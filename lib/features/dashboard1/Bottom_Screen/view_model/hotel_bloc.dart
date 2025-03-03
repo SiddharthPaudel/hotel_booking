@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/features/auth/domain/entity/hotel_entity.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/get_all_hotels_usecase.dart';
 
-import 'venue_event.dart';
-import 'venue_state.dart';
+import 'hotel_event.dart';
+import 'hotel_state.dart';
 
 
 class VenueBloc extends Bloc<VenueEvent, VenueState> {
