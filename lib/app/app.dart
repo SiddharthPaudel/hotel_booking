@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Sajilo bihe',
+        title: 'Quick Stay',
         theme: AppTheme.getApplicationTheme(isDarkMode: false),
         home: const SplashView(),
       ),

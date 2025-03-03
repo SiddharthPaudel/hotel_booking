@@ -5,8 +5,8 @@ import 'package:hotel_booking/core/common/snackbar/my_snackbar.dart';
 import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/user_profile_service.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/login_usecase.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:hotel_booking/features/dashboard/presentation/view/dashboard_view.dart';
 import 'package:hotel_booking/features/dashboard1/admin_dashboard_view.dart';
+import 'package:hotel_booking/features/dashboard1/dashboard_view.dart';
 import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
 
 

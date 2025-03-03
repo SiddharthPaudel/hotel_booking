@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_booking/features/dashboard/presentation/view/dashboard_view.dart';
+import 'package:hotel_booking/features/dashboard1/dashboard_view.dart';
 
 
 class HomeState extends Equatable {
