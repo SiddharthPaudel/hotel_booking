@@ -3,8 +3,8 @@ import 'package:hotel_booking/features/auth/domain/use_case/create_hotel_usecase
 import 'package:hotel_booking/features/auth/domain/use_case/delete_hotel_usecase.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/get_all_hotel_usecase.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/update_hotel_usecase.dart';
-import 'venue_event.dart';
-import 'venue_state.dart';
+import 'hotel_event.dart';
+import 'hotel_state.dart';
 
 
 class VenueBloc extends Bloc<VenueEvent, VenueState> {

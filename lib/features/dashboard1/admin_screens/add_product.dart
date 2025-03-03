@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_event.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_state.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel_event.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel_state.dart';
 import 'package:image_picker/image_picker.dart';
 
 

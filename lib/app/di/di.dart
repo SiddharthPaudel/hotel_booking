@@ -59,7 +59,7 @@ import 'package:hotel_booking/features/auth/domain/repository/hotel_repository_f
 import 'package:hotel_booking/features/auth/domain/use_case/create_hotel_usecase.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/delete_hotel_usecase.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/get_all_hotel_usecase.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel_bloc.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/update_hotel_usecase.dart';
 
 final getIt = GetIt.instance;

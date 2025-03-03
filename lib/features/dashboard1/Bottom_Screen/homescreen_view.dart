@@ -7,9 +7,9 @@ import 'package:hotel_booking/app/di/di.dart';
 import 'package:hotel_booking/features/auth/domain/entity/hotel.dart';
 import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
 import 'package:hotel_booking/features/dashboard1/Bottom_Screen/bookmark_view.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_event.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_state.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel_event.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/hotel_state.dart';
 
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';

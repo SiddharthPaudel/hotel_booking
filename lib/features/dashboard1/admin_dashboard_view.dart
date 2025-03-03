@@ -9,7 +9,7 @@ import 'package:hotel_booking/features/dashboard1/admin_screens/add_product.dart
 import 'package:hotel_booking/features/dashboard1/admin_screens/admin_booking_page.dart';
 import 'package:hotel_booking/features/dashboard1/admin_screens/view_contact.dart';
 import 'package:hotel_booking/features/dashboard1/admin_screens/view_user.dart';
-import 'package:hotel_booking/features/dashboard1/admin_screens/view_venue.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_hotel.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
