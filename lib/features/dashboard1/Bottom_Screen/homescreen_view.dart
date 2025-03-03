@@ -3,13 +3,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/di/di.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/venue.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view/login_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/bookmark_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_event.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_state.dart';
+import 'package:hotel_booking/app/di/di.dart';
+import 'package:hotel_booking/features/auth/domain/entity/venue.dart';
+import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/bookmark_view.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_event.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_state.dart';
+
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

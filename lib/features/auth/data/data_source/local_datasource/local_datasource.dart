@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:sajilobihe_event_venue_booking_system/core/network/hive_service.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/data_source/user_data_source.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/model/user_hive_model.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/user_entity.dart';
+import 'package:hotel_booking/core/network/hive_service.dart';
+import 'package:hotel_booking/features/auth/data/data_source/user_data_source.dart';
+import 'package:hotel_booking/features/auth/data/model/user_hive_model.dart';
+import 'package:hotel_booking/features/auth/domain/entity/user_entity.dart';
+
 
 class UserLocalDataSource implements IUserDataSource {
   final HiveService _hiveService;

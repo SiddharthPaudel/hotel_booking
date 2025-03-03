@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/di/di.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/shared_prefs/token_shared_prefs.dart';
+import 'package:hotel_booking/app/shared_prefs/token_shared_prefs.dart';
+
 
 class AuthInterceptor extends Interceptor {
   final TokenSharedPrefs tokenSharedPrefs;

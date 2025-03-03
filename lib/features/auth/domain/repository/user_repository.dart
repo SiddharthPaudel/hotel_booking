@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/error/failure.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/user_entity.dart';
+import 'package:hotel_booking/core/error/failure.dart';
+import 'package:hotel_booking/features/auth/domain/entity/user_entity.dart';
+
 
 abstract interface class IUserRepository {
   Future<Either<Failure, void>> createUser(UserEntity userEntity);

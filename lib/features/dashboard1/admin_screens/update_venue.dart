@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/venue.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_event.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_state.dart';
+import 'package:hotel_booking/features/auth/domain/entity/venue.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_event.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_state.dart';
+
 
 
 class UpdateVenuePage extends StatefulWidget {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view/login_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view_model/login/login_bloc.dart';
+
 
 
 class OnboardingCubit extends Cubit<void> {

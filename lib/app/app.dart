@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/di/di.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/theme/app_theme.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view_model/login/login_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view_model/signup/register_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/view_model/contact_bloc_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/home/presentation/view_model/home_cubit.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/splash/presentation/view/splash_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/splash/presentation/view_model/splash_cubit.dart';
+import 'package:hotel_booking/app/di/di.dart';
+import 'package:hotel_booking/core/theme/app_theme.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/view_model/contact_bloc_view.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
+import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
+import 'package:hotel_booking/features/splash/presentation/view/splash_view.dart';
+import 'package:hotel_booking/features/splash/presentation/view_model/splash_cubit.dart';
+
 // Import VenueBloc for venue management
 
 

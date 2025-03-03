@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_elevated_button.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_text_field.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/constants/color_constants.dart';
+import 'package:hotel_booking/core/common/widgets/custom_elevated_button.dart';
+import 'package:hotel_booking/core/common/widgets/custom_text_field.dart';
+
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -45,7 +45,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                       "Please input your email to get code verification to reset your password.",
                       style: TextStyle(
                         fontSize: 17.0,
-                        color: kBlueGreyColor,
+                       
                       ),
                     ),
                   ),
@@ -58,7 +58,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                         'Email',
                         style: TextStyle(
                             fontSize: 16.0,
-                            color: kBlueGreyColor,
+                          
                             fontWeight: FontWeight.w600),
                       )),
                   const SizedBox(height: 6),
@@ -86,7 +86,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     alignment: Alignment.center,
                     child: Text(
                       "Have a problem?",
-                      style: TextStyle(fontSize: 15.0, color: kGreyColor),
+                      style: TextStyle(fontSize: 15.0),
                     ),
                   ),
                   Align(

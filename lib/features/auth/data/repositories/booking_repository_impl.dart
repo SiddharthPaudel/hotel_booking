@@ -1,8 +1,9 @@
 
 
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/data_source/remote_datasource/booking_remote_datasource.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/booking_entity.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/repository/booking_repository.dart';
+import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/booking_remote_datasource.dart';
+import 'package:hotel_booking/features/auth/domain/entity/booking_entity.dart';
+import 'package:hotel_booking/features/auth/domain/repository/booking_repository.dart';
+
 
 class BookingRepositoryImpl implements BookingRepository {
   final BookingRemoteDataSource remoteDataSource;

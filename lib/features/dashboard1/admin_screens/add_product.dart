@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_event.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_state.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_event.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_state.dart';
+
 
 class AddVenueScreen extends StatefulWidget {
   const AddVenueScreen({Key? key}) : super(key: key);

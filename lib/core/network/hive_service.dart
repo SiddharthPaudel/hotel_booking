@@ -1,7 +1,8 @@
 import 'package:hive_flutter/adapters.dart';
+import 'package:hotel_booking/app/constants/hive_table_constant.dart';
+import 'package:hotel_booking/features/auth/data/model/user_hive_model.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/constants/hive_table_constant.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/model/user_hive_model.dart';
+
 
 class HiveService {
   Future<void> init() async {

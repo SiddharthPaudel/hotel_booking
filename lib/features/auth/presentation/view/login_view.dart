@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_elevated_button.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_text_field.dart';
+import 'package:hotel_booking/core/common/widgets/custom_elevated_button.dart';
+import 'package:hotel_booking/core/common/widgets/custom_text_field.dart';
+import 'package:hotel_booking/features/auth/presentation/view/register_view.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/login/login_bloc.dart';
 
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view/register_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view_model/login/login_bloc.dart';
 
 class LoginView extends StatelessWidget {
   LoginView({super.key});

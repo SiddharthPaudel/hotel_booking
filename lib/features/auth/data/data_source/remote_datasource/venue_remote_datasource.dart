@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/constants/api_endpoints.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/model/venue_api_model.dart';
+import 'package:hotel_booking/app/constants/api_endpoints.dart';
+import 'package:hotel_booking/features/auth/data/model/venue_api_model.dart';
+
 
 class VenueRemoteDataSource {
   final Dio dio;

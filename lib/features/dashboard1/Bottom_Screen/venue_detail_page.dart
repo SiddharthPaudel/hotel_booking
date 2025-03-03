@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/di/di.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/venue_entity.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/user_booking_page.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/booking_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/booking_event.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/booking_state.dart';
+import 'package:hotel_booking/app/di/di.dart';
+import 'package:hotel_booking/features/auth/domain/entity/venue_entity.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/user_booking_page.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/booking_bloc.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/booking_event.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/booking_state.dart';
+
 
 class VenueDetailPage extends StatelessWidget {
   final VenueEntity venue;

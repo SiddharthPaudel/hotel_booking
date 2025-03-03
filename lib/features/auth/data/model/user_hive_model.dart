@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/constants/hive_table_constant.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/user_entity.dart';
+import 'package:hotel_booking/app/constants/hive_table_constant.dart';
+import 'package:hotel_booking/features/auth/domain/entity/user_entity.dart';
+
 import 'package:uuid/uuid.dart';
 
 part 'user_hive_model.g.dart';

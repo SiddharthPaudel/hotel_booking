@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/data_source/remote_datasource/user_profile_service.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/model/user_profile_model.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/user_booking_page.dart';
+import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/user_profile_service.dart';
+import 'package:hotel_booking/features/auth/data/model/user_profile_model.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/user_booking_page.dart';
+
 import 'edit_profile_view.dart';
 
 class ProfileView extends StatefulWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/onBoarding/presentation/view_model/onboarding_cubit.dart';
+import 'package:hotel_booking/features/onBoarding/presentation/view_model/onboarding_cubit.dart';
+
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

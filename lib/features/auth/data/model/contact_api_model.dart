@@ -1,5 +1,6 @@
+import 'package:hotel_booking/features/auth/domain/entity/contact_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/contact_entity.dart';
+
 
 
 part 'contact_api_model.g.dart';

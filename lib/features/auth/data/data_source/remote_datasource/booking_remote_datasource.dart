@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/constants/api_endpoints.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/model/booking_model.dart';
+import 'package:hotel_booking/app/constants/api_endpoints.dart';
+import 'package:hotel_booking/features/auth/data/model/booking_model.dart';
+
 
 abstract class BookingRemoteDataSource {
   Future<BookingModel> createBooking(Map<String, dynamic> bookingData);

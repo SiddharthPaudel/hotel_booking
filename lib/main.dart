@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/app.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/di/di.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/network/hive_service.dart';
+import 'package:hotel_booking/app/app.dart';
+import 'package:hotel_booking/app/di/di.dart';
+import 'package:hotel_booking/core/network/hive_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

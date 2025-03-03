@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard/presentation/view/dashboard_view.dart';
+import 'package:hotel_booking/features/dashboard/presentation/view/dashboard_view.dart';
+
 
 class HomeState extends Equatable {
   final int selectedIndex;

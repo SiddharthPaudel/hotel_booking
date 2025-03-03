@@ -3,21 +3,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/app/di/di.dart';
+import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/add_product.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/admin_booking_page.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_contact.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_user.dart';
+import 'package:hotel_booking/features/dashboard1/admin_screens/view_venue.dart';
 import 'package:proximity_sensor/proximity_sensor.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:sajilobihe_event_venue_booking_system/app/di/di.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/venue.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view/login_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/add_product.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/admin_booking_page.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_contact.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_user.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_venue.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_event.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/admin_screens/view_model/venue_state.dart';
+
 
 class AdminDashboardApp extends StatefulWidget {
   const AdminDashboardApp({super.key});

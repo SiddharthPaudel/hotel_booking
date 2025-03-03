@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/error/failure.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/data_source/remote_datasource/venue_remote_datasource.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/venue_entity.dart';
+import 'package:hotel_booking/core/error/failure.dart';
+import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/venue_remote_datasource.dart';
+import 'package:hotel_booking/features/auth/domain/entity/venue_entity.dart';
+
 
 
 abstract class VenueRepository {

@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/venue_entity.dart';
+import 'package:hotel_booking/features/auth/domain/entity/venue_entity.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_all_venues_usecase.dart';
+
 import 'venue_event.dart';
 import 'venue_state.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/get_all_venues_usecase.dart';
+
 
 class VenueBloc extends Bloc<VenueEvent, VenueState> {
   final GetVenuesUseCase _getVenuesUseCase;

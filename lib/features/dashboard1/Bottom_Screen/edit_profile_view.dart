@@ -1,8 +1,8 @@
 // edit_profile_view.dart
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/data_source/remote_datasource/user_profile_service.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/user_profile_service.dart';
+
 
 
 class EditProfileView extends StatefulWidget {

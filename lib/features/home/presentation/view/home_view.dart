@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/features/home/presentation/view/bottom_view/sell_view.dart';
+import 'package:hotel_booking/features/home/presentation/view_model/home_cubit.dart';
+import 'package:hotel_booking/features/home/presentation/view_model/home_state.dart';
 import 'package:icons_plus/icons_plus.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/home/presentation/view/bottom_view/sell_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/home/presentation/view_model/home_cubit.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/home/presentation/view_model/home_state.dart';
+
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});

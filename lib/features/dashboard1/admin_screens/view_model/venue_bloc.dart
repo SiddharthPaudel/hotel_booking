@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/create_venue.usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/delete_venue_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/get_all_venue_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/update_venue_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/create_venue.usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/delete_venue_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_all_venue_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/update_venue_usecase.dart';
 import 'venue_event.dart';
 import 'venue_state.dart';
 

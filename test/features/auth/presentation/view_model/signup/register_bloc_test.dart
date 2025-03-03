@@ -1,13 +1,12 @@
 import 'dart:io';
+import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hotel_booking/core/error/failure.dart';
-import 'package:hotel_booking/features/auth/domain/use_case/register_user_usecase.dart';
-import 'package:hotel_booking/features/auth/domain/use_case/upload_image_usercase.dart';
-
+import 'package:hotel_booking/features/auth/domain/use_case/upload_image_usecase.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_state.dart';
 import 'package:mocktail/mocktail.dart';

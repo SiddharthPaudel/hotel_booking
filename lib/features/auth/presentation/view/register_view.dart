@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking/core/common/widgets/custom_elevated_button.dart';
+import 'package:hotel_booking/core/common/widgets/custom_text_field.dart';
+import 'package:hotel_booking/features/auth/presentation/view_model/signup/register_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/constants/color_constants.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_elevated_button.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/common/widgets/custom_text_field.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/presentation/view_model/signup/register_bloc.dart';
+
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});

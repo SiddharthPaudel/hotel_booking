@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/delte_contact_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/get_all_contact_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/delte_contact_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_all_contact_usecase.dart';
+
 import 'contact_event.dart';
 import 'contact_state.dart';
 

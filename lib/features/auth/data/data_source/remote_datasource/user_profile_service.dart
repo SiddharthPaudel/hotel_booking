@@ -1,7 +1,8 @@
 // user_profile_service.dart
 
 import 'package:dio/dio.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/model/user_profile_model.dart';
+import 'package:hotel_booking/features/auth/data/model/user_profile_model.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileService {

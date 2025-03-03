@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/bookmark_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/contact_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/homescreen_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/dashboard1/Bottom_Screen/profile_view.dart';
-import 'package:sajilobihe_event_venue_booking_system/sensor/near_detector.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/bookmark_view.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/contact_view.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/homescreen_view.dart';
+import 'package:hotel_booking/features/dashboard1/Bottom_Screen/profile_view.dart';
+import 'package:hotel_booking/sensor/near_detector.dart';
+
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});

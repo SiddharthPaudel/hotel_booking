@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/common/snackbar/my_snackbar.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/create_user_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/upload_image_usecase.dart';
+import 'package:hotel_booking/core/common/snackbar/my_snackbar.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/create_user_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/upload_image_usecase.dart';
+
 import './register_state.dart';
 part 'register_event.dart';
 

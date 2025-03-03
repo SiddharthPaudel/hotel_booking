@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:hotel_booking/app/constants/api_endpoints.dart';
+import 'package:hotel_booking/app/di/di.dart';
+import 'package:hotel_booking/app/shared_prefs/token_shared_prefs.dart';
+import 'package:hotel_booking/core/network/auth_inspector.dart';
+import 'package:hotel_booking/core/network/dio_error_interceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/constants/api_endpoints.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/shared_prefs/token_shared_prefs.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/network/auth_inspector.dart';
-import 'package:sajilobihe_event_venue_booking_system/core/network/dio_error_interceptor.dart';
-import 'package:sajilobihe_event_venue_booking_system/app/di/di.dart';
+
 
 class ApiService {
   final Dio _dio;

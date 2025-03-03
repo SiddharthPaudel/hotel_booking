@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/approve_bookings_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/cancel_bookings_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/create_booking_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/delete_bookings_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/get_all_bookings_usecase.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/use_case/get_user_bookings.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/approve_bookings_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/cancel_bookings_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/create_booking_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/delete_bookings_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_all_bookings_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_user_bookings.dart';
+
 import 'booking_event.dart';
 import 'booking_state.dart';
 

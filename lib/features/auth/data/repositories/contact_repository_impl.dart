@@ -1,7 +1,8 @@
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/data_source/remote_datasource/contact_remote_datasource.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/data/model/contact_api_model.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/entity/contact_entity.dart';
-import 'package:sajilobihe_event_venue_booking_system/features/auth/domain/repository/contact_repository.dart';
+import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/contact_remote_datasource.dart';
+import 'package:hotel_booking/features/auth/data/model/contact_api_model.dart';
+import 'package:hotel_booking/features/auth/domain/entity/contact_entity.dart';
+import 'package:hotel_booking/features/auth/domain/repository/contact_repository.dart';
+
 
 class ContactRepositoryImpl implements ContactRepository {
   final ContactRemoteDataSource remoteDataSource;
