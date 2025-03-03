@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:hotel_booking/core/error/failure.dart';
-import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/venue_remote_datasource.dart';
-import 'package:hotel_booking/features/auth/domain/entity/venue_entity.dart';
+import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/hotel_remote_datasource.dart';
+import 'package:hotel_booking/features/auth/domain/entity/hotel_entity.dart';
 
 
 

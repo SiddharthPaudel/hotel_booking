@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/app/di/di.dart';
-import 'package:hotel_booking/features/auth/domain/entity/venue_entity.dart';
+import 'package:hotel_booking/features/auth/domain/entity/hotel_entity.dart';
 import 'package:hotel_booking/features/dashboard1/Bottom_Screen/user_booking_page.dart';
 import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/booking_bloc.dart';
 import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/booking_event.dart';

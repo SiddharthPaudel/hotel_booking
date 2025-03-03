@@ -2,7 +2,7 @@
 
 
 
-import 'package:hotel_booking/features/auth/domain/repository/venue_repository_final.dart';
+import 'package:hotel_booking/features/auth/domain/repository/hotel_repository_final.dart';
 
 
 class DeleteVenueUseCase {

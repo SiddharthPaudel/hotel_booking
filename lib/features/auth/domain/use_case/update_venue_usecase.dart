@@ -1,7 +1,7 @@
 
 
-import 'package:hotel_booking/features/auth/domain/entity/venue.dart';
-import 'package:hotel_booking/features/auth/domain/repository/venue_repository_final.dart';
+import 'package:hotel_booking/features/auth/domain/entity/hotel.dart';
+import 'package:hotel_booking/features/auth/domain/repository/hotel_repository_final.dart';
 
 
 class UpdateVenueUseCase {

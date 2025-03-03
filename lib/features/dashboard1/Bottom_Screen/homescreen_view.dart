@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/app/di/di.dart';
-import 'package:hotel_booking/features/auth/domain/entity/venue.dart';
+import 'package:hotel_booking/features/auth/domain/entity/hotel.dart';
 import 'package:hotel_booking/features/auth/presentation/view/login_view.dart';
 import 'package:hotel_booking/features/dashboard1/Bottom_Screen/bookmark_view.dart';
 import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';

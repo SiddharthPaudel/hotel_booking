@@ -53,12 +53,12 @@ import 'package:hotel_booking/features/onBoarding/presentation/view_model/onboar
 import 'package:hotel_booking/features/splash/presentation/view_model/splash_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/venues_remote_datasource.dart';
-import 'package:hotel_booking/features/auth/data/repositories/venue_repository_impl.dart';
-import 'package:hotel_booking/features/auth/domain/repository/venue_repository_final.dart';
-import 'package:hotel_booking/features/auth/domain/use_case/create_venue.usecase.dart';
-import 'package:hotel_booking/features/auth/domain/use_case/delete_venue_usecase.dart';
-import 'package:hotel_booking/features/auth/domain/use_case/get_all_venue_usecase.dart';
+import 'package:hotel_booking/features/auth/data/data_source/remote_datasource/hotels_remote_datasource.dart';
+import 'package:hotel_booking/features/auth/data/repositories/hotel_repository_impl.dart';
+import 'package:hotel_booking/features/auth/domain/repository/hotel_repository_final.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/create_hotel_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/delete_hotel_usecase.dart';
+import 'package:hotel_booking/features/auth/domain/use_case/get_all_hotel_usecase.dart';
 import 'package:hotel_booking/features/dashboard1/admin_screens/view_model/venue_bloc.dart';
 import 'package:hotel_booking/features/auth/domain/use_case/update_venue_usecase.dart';
 

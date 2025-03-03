@@ -1,9 +1,9 @@
-import 'package:hotel_booking/features/auth/domain/entity/venue_entity.dart';
+import 'package:hotel_booking/features/auth/domain/entity/hotel_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 
 
-part 'venue_api_model.g.dart';
+part 'hotel_api_model.g.dart';
 
 @JsonSerializable()
 class VenueApiModel {
