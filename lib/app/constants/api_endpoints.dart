@@ -46,9 +46,9 @@ class ApiEndpoints {
 //   static const Duration receiveTimeout = Duration(seconds: 5000);
 
 //   // Replace 10.0.2.2 with your local IP address 192.168.101.4
-//   static const String baseUrl = "http://192.168.101.11:3000/api/";
+//   static const String baseUrl = "http://192.168.1.71:3000/api/";
 //   static const String staticBaseUrl =
-//       "http://192.168.101.11:3000"; // for static files like images
+//       "http://192.168.1.71:3000"; // for static files like images
 
 //   // ====================== Auth Routes =========================
 //   static const String login = "users/login";
@@ -60,7 +60,7 @@ class ApiEndpoints {
 //   static const String profile = "users/me";
 
 //   static const String submitContact =
-//       "http://192.168.101.11:3000/api/contact/submit";
+//       "http://192.168.1.71:3000/api/contact/submit";
 
 //   // Venue Endpoints
 //   static const String getAllVenues = "${baseUrl}venues";

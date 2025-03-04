@@ -19,15 +19,15 @@ void main() {
   final tContacts = [
     ContactEntity(
       id: '1',
-      name: 'bibhakta',
-      email: 'bibhakta@gmail.com',
+      name: 'siddhartha',
+      email: 'sid@gmail.com',
       phone: '1234567890',
       message: 'Hello',
     ),
     ContactEntity(
       id: '2',
-      name: 'bibhakta1',
-      email: 'bibhakta@gmail.com',
+      name: 'siddhartha',
+      email: 'sid@gmail.com',
       phone: '1234567890',
       message: 'Hello',
     ),
