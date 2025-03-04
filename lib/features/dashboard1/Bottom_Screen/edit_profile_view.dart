@@ -110,10 +110,10 @@ class _EditProfileViewState extends State<EditProfileView> {
                       decoration: const InputDecoration(labelText: "Email"),
                     ),
                     const SizedBox(height: 16),
-                    TextField(
-                      controller: phoneController,
-                      decoration: const InputDecoration(labelText: "Phone"),
-                    ),
+                    // TextField(
+                    //   controller: phoneController,
+                    //   decoration: const InputDecoration(labelText: "Phone"),
+                    // ),
                     const SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: updateProfile,

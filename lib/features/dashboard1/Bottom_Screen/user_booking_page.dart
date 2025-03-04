@@ -131,16 +131,16 @@ class UserBookingPage extends StatelessWidget {
                                               "\$${booking.venuePrice?.toStringAsFixed(2) ?? 'N/A'}"),
                                         ],
                                       ),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.people,
-                                              color: Colors.blueAccent,
-                                              size: 18),
-                                          const SizedBox(width: 5),
-                                          Text(
-                                              "Room: ${booking.venueCapacity ?? 'N/A'}"),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     const Icon(Icons.people,
+                                      //         color: Colors.blueAccent,
+                                      //         size: 18),
+                                      //     const SizedBox(width: 5),
+                                      //     Text(
+                                      //         "Room: ${booking.venueCapacity ?? 'N/A'}"),
+                                      //   ],
+                                      // ),
                                       Row(
                                         children: [
                                           const Icon(Icons.calendar_today,

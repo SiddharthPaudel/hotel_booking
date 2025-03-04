@@ -135,7 +135,7 @@ class VenueDetailPage extends StatelessWidget {
                                 .read<BookingBloc>()
                                 .add(CreateBookingEvent(venue.id));
                           },
-                          child: const Text("Book Appointment",
+                          child: const Text("Book Now",
                               style: TextStyle(color: Colors.white)),
                         );
                       },
