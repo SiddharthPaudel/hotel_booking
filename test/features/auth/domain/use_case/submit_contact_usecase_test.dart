@@ -19,9 +19,9 @@ void main() {
 
   final tContact = ContactEntity(
     id: '',
-    name: 'bibhakta',
-    email: 'bibhakta@gmail.com',
-    phone: '9877375322',
+    name: 'siddhartha',
+    email: 'sid@gmail.com',
+    phone: '9849800636',
     message: 'Test message',
   );
 

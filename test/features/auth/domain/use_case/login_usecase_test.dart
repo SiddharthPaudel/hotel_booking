@@ -28,8 +28,8 @@ void main() {
     usecase = LoginUsecase(mockUserRepository, mockTokenSharedPrefs);
   });
 
-  const tEmail = 'bibhakta@gmail.com';
-  const tPassword = 'bibhakta';
+  const tEmail = 'siddhartha@gmail.com';
+  const tPassword = 'siddhartha';
   const tToken = 'some_token';
 
   test('should return token when login is successful', () async {
