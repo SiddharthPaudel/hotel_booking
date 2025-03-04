@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking/features/onBoarding/presentation/view_model/onboarding_cubit.dart';
 
-
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -34,17 +33,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     controller: pageController,
                     children: [
                       buildOnboardingPage(
-                        subtitle: "Explore a wide variety of books to buy and sell at your convenience",
+                        subtitle:
+                            "Explore a wide variety of hotels to book and manage at your convenience",
                         imagePath: "assets/images/introduction1.png",
                         constraints: constraints,
                       ),
                       buildOnboardingPage(
-                        subtitle: "Buy and sell books with confidence through a secure platform",
+                        subtitle:
+                            "Book and manage hotel stays with confidence through a secure platform",
                         imagePath: "assets/images/introduction2.png",
                         constraints: constraints,
                       ),
                       buildOnboardingPage(
-                        subtitle: "Engage with a community of readers and book lovers",
+                        subtitle:
+                            "Engage with a community of travelers and hotel enthusiasts",
                         imagePath: "assets/images/introduction3.png",
                         constraints: constraints,
                       ),

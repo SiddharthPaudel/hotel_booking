@@ -49,7 +49,7 @@ class _AddVenueScreenState extends State<AddVenueScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[200], // Light background color
       appBar: AppBar(
-        title: const Text("Add Venue"),
+        title: const Text("Add Hotel"),
         backgroundColor: Colors.white,
       ),
       body: Center(
@@ -148,7 +148,7 @@ class _AddVenueScreenState extends State<AddVenueScreen> {
                               ),
                             ),
                             child: const Text(
-                              "Add Venue",
+                              "Add Hotel",
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),
                             ),

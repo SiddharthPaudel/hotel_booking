@@ -108,7 +108,7 @@ class _UpdateVenuePageState extends State<UpdateVenuePage> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  child: const Text("Update Venue"),
+                  child: const Text("Update hotel"),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       final images = _imagesController.text
